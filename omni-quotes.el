@@ -34,33 +34,28 @@
 (defvar oq:repeat-interval 30 "OmniQuote repeat time, in seconds")
 ;; §todo: to custom
 
-(defun oq:idle-timer-callback ()
+(defun oq:idle-display-callback ()
   "OmniQuote Timer Call bac function"
   ;; §TODO! check if there is no prompt waiting!!
   (oq:random-quote))
 
-;; §keep?
-(defun oq:idle-timer-run-once ()
-  "Add Omniquote timer with no repeat"
-  (interactive)
-  (oq:cancel-if-timer)
   ;; maybe extract update timer function?: `cancel-and-set-new-timer'...
-  (setq oq:idle-timer
-	(run-with-idle-timer oq:idle-interval nil #'oq:idle-timer-callback)))
-
-(defun idle-timer-quote-start ()
-  "Add OmniQuote idle timer with repeat"
+(defun oq:idle-display-start (&optional no-repeat)
+  "Add OmniQuote idle timer with repeat (by default)"
   (interactive)
   (oq:cancel-if-timer)
   (setq oq:idle-timer
-	(run-with-timer oq:idle-interval oq:repeat-interval #'oq:idle-timer-callback)))
+	(run-with-timer oq:idle-interval
+			(if no-repeat nil oq:repeat-interval)
+			#'oq:idle-display-callback)))
 
 ;; stop function
-(defun idle-timer-quote-stop ()
+(defun oq:idle-display-stop ()
   "Stop OmniQuote Idle timer"
   (interactive)
   (oq:cancel-if-timer)
   (setq oq:idle-timer nil))
+
 
 ;; Helper Methods:
 (defun oq:cancel-if-timer ()
