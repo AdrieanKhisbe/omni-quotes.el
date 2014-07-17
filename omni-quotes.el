@@ -32,12 +32,16 @@
 (defvar oq:idle-timer nil "OmniQuote timer")
 (defvar oq:idle-interval 5 "OmniQuote idle time, in seconds")
 (defvar oq:repeat-interval 30 "OmniQuote repeat time, in seconds")
+(defvar oq:prompt "> " "Leading prompt of messages")
 ;; §todo: to custom
 
 (defun oq:idle-display-callback ()
   "OmniQuote Timer Call bac function"
-  ;; §TODO! check if there is no prompt waiting!!
-  (oq:random-quote))
+  ;; ¤note: check if there is no prompt waiting!!
+  (unless (or (active-minibuffer-window) (current-message))
+    ;; §todo: bypass if oq message
+    ;; §bonux: list of message to bypass (exit, end of buffer...)
+    (oq:random-quote)))
 
 (defun oq:idle-display-start (&optional no-repeat)
   "Add OmniQuote idle timer with repeat (by default)"
