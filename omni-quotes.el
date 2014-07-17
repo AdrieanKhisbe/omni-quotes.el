@@ -39,22 +39,17 @@
   ;; §TODO! check if there is no prompt waiting!!
   (oq:random-quote))
 
-  ;; maybe extract update timer function?: `cancel-and-set-new-timer'...
 (defun oq:idle-display-start (&optional no-repeat)
   "Add OmniQuote idle timer with repeat (by default)"
   (interactive)
-  (oq:cancel-if-timer)
-  (setq oq:idle-timer
-	(run-with-timer oq:idle-interval
-			(if no-repeat nil oq:repeat-interval)
-			#'oq:idle-display-callback)))
+  (oq:cancel-and-set-new-timer (run-with-timer oq:idle-interval
+					       (if no-repeat nil oq:repeat-interval)
+					       #'oq:idle-display-callback)))
 
-;; stop function
 (defun oq:idle-display-stop ()
   "Stop OmniQuote Idle timer"
   (interactive)
-  (oq:cancel-if-timer)
-  (setq oq:idle-timer nil))
+  (oq:cancel-and-set-new-timer nil))
 
 
 ;; Helper Methods:
@@ -62,6 +57,11 @@
   "Cancel OmniQuote timer if set"
   (when (timerp oq:idle-timer)
     (cancel-timer oq:idle-timer)))
+
+(defun oq:cancel-and-set-new-timer (timer)
+  "Cancel timer and set it to new value."
+  (oq:cancel-if-timer)
+  (setq oq:idle-timer timer))
 
 ;; §Todo: minor mode.
 
