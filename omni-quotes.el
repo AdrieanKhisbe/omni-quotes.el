@@ -1,17 +1,19 @@
+;;; §TODO: Make header.
+
 ;;; §draft. idee de quote à charger.
 ;;; display random au fur et à mesure. ? ring/list
 ;;; Utiliser aussi pour commandes à renforcer
 ;;; trigger. affiche après un certain random.
 ;;; §Later: plusieurs catégories.
-;;; §maybe: le binder avec un des trucs de quotes?
-;;; use dash library
+;;; §maybe: le binder avec un des trucs de quotes?: forturnes, and co.
+;;; use dash/s/f library?
 
 
 ;;; ¤* customs:
 ;; §todo: to custom
 (defvar oq:idle-interval 5 "OmniQuote idle time, in seconds")
 (defvar oq:repeat-interval 30 "OmniQuote repeat time, in seconds")
-(defvar oq:prompt "»" "Leading prompt of messages")
+(defvar oq:prompt "» " "Leading prompt of messages")
 (defvar oq:color-prompt t "Is The prompt colored") ; §later:face (also for the text)
 
 (when oq:color-prompt
@@ -20,6 +22,7 @@
 (defvar oq:quotes nil "My stupid quotes")
 ;; §todo: use a ring structure randomly populated at startup
 ;; §later: use category. (revision, stupid quote, emacs tips, emacs binding to learn...)
+;;         category based on context (ex langage specific tips)
 ;; §later: , offer many method to get quotes (files, web), and use a var holding
 ;;        current function used to et quote. (call this several tim to populate the ring)
 (setq oq:quotes '(
@@ -42,7 +45,7 @@
 (defun oq:random-quote ()
   "Affiche une quote au hasard"
   (interactive)
-  (message "%s %s" oq:prompt
+  (message "%s%s" oq:prompt
 	   (nth (random (length oq:quotes)) oq:quotes)))
 ;; see berkeley: utilities.lisp!!!
 
@@ -56,6 +59,8 @@
 	      (and (current-message)
 		   ;; §bonux: list of message to bypass (exit, end of buffer...)
 		   ;; when s dep (s-starts-with-p oq:prompt (current-message) )
+		   ;; §todo: check if prompt not empty.
+		   ;;        extract logic in function
 		   (not (string-prefix-p oq:prompt (current-message)))))
     ;; §todo: after to long idle time disable it (maybe use other timer, or number of iteration. (how to reset?))
     (oq:random-quote)))
@@ -84,6 +89,15 @@
   (oq:cancel-if-timer)
   (setq oq:idle-timer timer))
 
-;; §Todo: minor mode.
+;;;###autoload
+(define-minor-mode omni-quotes-mode ; §maybe:plural?
+  "Display random quotes when idle."
+  ;; :lighter " Ξ" ;§to option?󠁱
+  :global t
+  ;; :group §todo:find-one?
+  (progn
+    (if omni-quotes-mode
+      (oq:idle-display-start)
+    (oq:idle-display-stop))))
 
 (provide 'omni-quotes)
