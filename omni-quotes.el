@@ -2,17 +2,15 @@
 
 ;;; §draft. idee de quote à charger.
 ;;; display random au fur et à mesure. ? ring/list
-;;; Utiliser aussi pour commandes à renforcer
-;;; trigger. affiche après un certain random.
+;;; Utiliser aussi pour commandes à renforcer trigger. affiche après un certain random.
 ;;; §Later: plusieurs catégories.
 ;;; §maybe: le binder avec un des trucs de quotes?: forturnes, and co.
 ;;; use dash/s/f library?
 
-
 ;;; ¤* customs:
 ;; §todo: to custom
-(defvar oq:idle-interval 5 "OmniQuote idle time, in seconds")
-(defvar oq:repeat-interval 30 "OmniQuote repeat time, in seconds")
+(defvar oq:idle-interval 3 "OmniQuote idle time, in seconds")
+(defvar oq:repeat-interval 20 "OmniQuote repeat time, in seconds")
 (defvar oq:prompt "» " "Leading prompt of messages")
 (defvar oq:color-prompt t "Is The prompt colored") ; §later:face (also for the text)
 
@@ -42,18 +40,24 @@
 ;; variable for the timer object
 (defvar oq:idle-timer nil "OmniQuote timer")
 
-(defun oq:random-quote ()
-  "Affiche une quote au hasard"
+(defun oq:display-random-quote ()
+  "Affiche une quote au hasard préfixée du prompt."
+  ;; §maybe: alias in global name space du genre `omni-quotes-random-display'
   (interactive)
   (message "%s%s" oq:prompt
-	   (nth (random (length oq:quotes)) oq:quotes)))
+	   ;; §maybe: print in specific buffer? [append with date?]
+	   (oq:random-quote)))
+
+(defun oq:random-quote ()
+  "Renvoi une quote au hasard"
+  (interactive)
+  (nth (random (length oq:quotes)) oq:quotes))
 ;; see berkeley: utilities.lisp!!!
-
-;; Following timer recipe: (§todo:maybe extract a library?)
-
+;; §later: to ring
 
 (defun oq:idle-display-callback ()
-  "OmniQuote Timer Call bac function"
+  "OmniQuote Timer callback function"
+  ;; maybe: force? optional argument?
   ;; ¤note: check if there is no prompt waiting!!
   (unless (or (active-minibuffer-window)
 	      (and (current-message)
@@ -63,7 +67,7 @@
 		   ;;        extract logic in function
 		   (not (string-prefix-p oq:prompt (current-message)))))
     ;; §todo: after to long idle time disable it (maybe use other timer, or number of iteration. (how to reset?))
-    (oq:random-quote)))
+    (oq:display-random-quote)))
 
 (defun oq:idle-display-start (&optional no-repeat)
   "Add OmniQuote idle timer with repeat (by default)"
@@ -80,6 +84,7 @@
 
 ;; Helper Methods:
 (defun oq:cancel-if-timer ()
+  ;; ¤note: no need to inline them with `defsubst'
   "Cancel OmniQuote timer if set"
   (when (timerp oq:idle-timer)
     (cancel-timer oq:idle-timer)))
