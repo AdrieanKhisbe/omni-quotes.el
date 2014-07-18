@@ -9,32 +9,43 @@
 
 ;;; ¤* customs:
 ;; §todo: to custom
-(defvar oq:idle-interval 3 "OmniQuote idle time, in seconds")
-(defvar oq:repeat-interval 20 "OmniQuote repeat time, in seconds")
-(defvar oq:prompt "» " "Leading prompt of messages")
-(defvar oq:color-prompt t "Is The prompt colored") ; §later:face (also for the text)
+(defcustom oq:idle-interval 3 "OmniQuote idle time, in seconds"
+  :type 'number :group 'omni-quotes)
+(defcustom oq:repeat-interval 20 "OmniQuote repeat time, in seconds"
+  :type 'number :group 'omni-quotes)
+(defcustom oq:prompt "» " "Leading prompt of messages"
+  :type 'string :group 'omni-quotes)
+(defcustom oq:color-prompt t "Is The Omni-Quote \"prompt\" colored"
+  :type 'boolean :group 'omni-quotes) ; §later:face (also for the text)
 
 (when oq:color-prompt
   (setq oq:prompt (propertize oq:prompt 'face 'font-lock-keyword-face)))
 
-(defvar oq:quotes nil "My stupid quotes")
+(defcustom oq:default-quotes
+  '(
+    ;; Emacs custos
+    "Customization is the corner stone of Emacs"
+    "Emacs is an acronym for \"Escape Meta Alt Control Shift\""
+
+    ;; Tips
+    "Harness Macro Powaaaa"
+    "Use a fuckying good register level" ; paye ton franglish
+    "Might be to learn to make function from macros"
+
+    ) ; end-of default quotes
+  "My stupid default (omni-)quotes"
+  :type '(repeat string) :group 'omni-quotes
+  )
+;; §later:custom: quotes sources
+;; §later:custom whitelist messages to bypass.
+
 ;; §todo: use a ring structure randomly populated at startup
 ;; §later: use category. (revision, stupid quote, emacs tips, emacs binding to learn...)
 ;;         category based on context (ex langage specific tips)
 ;; §later: , offer many method to get quotes (files, web), and use a var holding
 ;;        current function used to et quote. (call this several tim to populate the ring)
-(setq oq:quotes '(
-		  ;; Emacs custos
-		  "Customization is the corner stone of Emacs"
-		  "Emacs is an acronym for \"Escape Meta Alt Control Shift\""
 
-		  ;; Tips
-		  "Harness Macro Powaaaa"
-		  "Use a fuckying good register level" ; paye ton franglish
-		  "Might be to learn to make function from macros"
-		  "Aren't you a bit déRanger?...(c'est le bo'del)"
-
-		  ))
+;; §todo: (defvar current) -> structure stockant les sources courrant
 
 ;;; ¤*vars
 ;; variable for the timer object
@@ -51,7 +62,7 @@
 (defun oq:random-quote ()
   "Renvoi une quote au hasard"
   (interactive)
-  (nth (random (length oq:quotes)) oq:quotes))
+  (nth (random (length oq:default-quotes)) oq:default-quotes))
 ;; see berkeley: utilities.lisp!!!
 ;; §later: to ring
 
@@ -102,7 +113,7 @@
   ;; :group §todo:find-one?
   (progn
     (if omni-quotes-mode
-      (oq:idle-display-start)
-    (oq:idle-display-stop))))
+	(oq:idle-display-start)
+      (oq:idle-display-stop))))
 
 (provide 'omni-quotes)
