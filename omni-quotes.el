@@ -7,8 +7,10 @@
 ;;; §maybe: le binder avec un des trucs de quotes?: forturnes, and co.
 ;;; use dash/s/f library?
 
-;;; ¤* customs:
-;; §todo: to custom
+;;; ¤> customs:
+(defcustom oq:lighter " Ξ" "OmniQuote lighter (name in modeline) if any" ; §when diffused: Q, (or greek style)
+  :type 'string :group 'omni-quotes)
+
 (defcustom oq:idle-interval 3 "OmniQuote idle time, in seconds"
   :type 'number :group 'omni-quotes)
 (defcustom oq:repeat-interval 20 "OmniQuote repeat time, in seconds"
@@ -52,7 +54,8 @@
 (defvar oq:idle-timer nil "OmniQuote timer")
 
 (defun oq:display-random-quote ()
-  "Affiche une quote au hasard préfixée du prompt."
+  "Display a random quote obtained from \\[o:random-quote].
+The quote will be prefixed by the current \\[oq:prompt]"
   ;; §maybe: alias in global name space du genre `omni-quotes-random-display'
   (interactive)
   (message "%s%s" oq:prompt
@@ -60,7 +63,8 @@
 	   (oq:random-quote)))
 
 (defun oq:random-quote ()
-  "Renvoi une quote au hasard"
+  "Get a random quote from \\[oq:default-quotes]"
+  ;; §todo: use current-quote ring structure to create
   (interactive)
   (nth (random (length oq:default-quotes)) oq:default-quotes))
 ;; see berkeley: utilities.lisp!!!
@@ -96,19 +100,19 @@
 ;; Helper Methods:
 (defun oq:cancel-if-timer ()
   ;; ¤note: no need to inline them with `defsubst'
-  "Cancel OmniQuote timer if set"
+  "Cancel OmniQuote timer (\\[oq:idle-timer]) if set"
   (when (timerp oq:idle-timer)
     (cancel-timer oq:idle-timer)))
 
-(defun oq:cancel-and-set-new-timer (timer)
-  "Cancel timer and set it to new value."
+(defun oq:cancel-and-set-new-timer (new-timer)
+  "Cancel timer (\\[oq:idle-timer]) and set it to new value."
   (oq:cancel-if-timer)
-  (setq oq:idle-timer timer))
+  (setq oq:idle-timer new-timer))
 
 ;;;###autoload
 (define-minor-mode omni-quotes-mode ; §maybe:plural?
   "Display random quotes when idle."
-  ;; :lighter " Ξ" ;§to option?󠁱
+  :lighter oq:lighter
   :global t
   ;; :group §todo:find-one?
   (progn
