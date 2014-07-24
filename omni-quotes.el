@@ -49,7 +49,7 @@
 
 (defcustom oq:boring-message-patterns
   '(
-    "^Omni-Tags mode enabled"
+    "^Omni-Quotes mode enabled"
     "^Mark set"
     "^Auto-saving...done"
     "^Quit"
@@ -61,9 +61,10 @@
     "^Configuring package" "^Loading package" "^use-package idle:"
     "^Here is not Git/Mercurial work tree"
     ;; §maybe:  wrote, save
+    "^Saving file" "^Wrote /"
     )
   "List of message that can be overwrite by an OmniQuote"
-  :type '(repeat string) :group 'omni-quotes
+  :type '(repeat regexp) :group 'omni-quotes
   )
 ;; §todo:now regexp opt
 
