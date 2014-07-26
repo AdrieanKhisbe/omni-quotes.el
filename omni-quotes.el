@@ -65,6 +65,9 @@
     "Use a fuckying good register level" ; paye ton franglish
     "Might be to learn to make function from macros"
 
+    "Use position register and jump everywher in no time! :)"
+    "Bookmark are a must learn feature!"
+
     ) ; end-of default quotes
   "My stupid default (omni-)quotes."
   :type '(repeat string) :group 'omni-quotes
@@ -97,13 +100,22 @@
   "List of message that can be overwrite by an OmniQuote."
   :type '(repeat regexp) :group 'omni-quotes
   )
-;; §todo:now regexp opt
+
+
 
 ;; §todo: (defvar current) -> structure stockant les sources courrant
 
 ;;; ¤>vars
-;; variable for the timer object
-(defvar oq:idle-timer nil "OmniQuote timer.")
+(defvar oq:current-quotes-ring (make-ring 42) ; §todo:custom
+  "Ring Storing the Different quotes")
+
+(defun oq:populate-ring () ;§todo: make it call current population method
+  "Populate `oq:current-quotes-ring' with `oq:default-quotes'" ; ¤warn:doc-update-with-function
+  (mapc (lambda(quote) (ring-insert+extend oq:current-quotes-ring quote)) oq:default-quotes))
+;; ¤note: `ring-convert-sequence-to-ring' would have done the job.
+;; §todo: suffle method
+
+(defvar oq:idle-timer nil "OmniQuote timer.") ;§todoo: extract in quote timer.
 (defvar oq:boring-message-regexp
   (mapconcat 'identity oq:boring-message-patterns  "\\|")
   ;;¤if:s s-join..
@@ -126,6 +138,7 @@ The quote will be prefixed by the current `oq:prompt'"
   (nth (random (length oq:default-quotes)) oq:default-quotes))
 ;; see berkeley: utilities.lisp!!!
 ;; §later: to ring
+
 
 (defun oq:idle-display-callback ()
   "OmniQuote Timer callback function."
@@ -185,8 +198,6 @@ Argument NEW-TIMER is the new timer to set (nil to disable)."
     (if omni-quotes-mode
 	(oq:idle-display-start)
       (oq:idle-display-stop))))
-
-(provide 'omni-quotes)
 
 (provide 'omni-quotes)
 

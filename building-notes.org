@@ -1,0 +1,27 @@
+Diverse [Personal] Building Notes for omni-tags
+
+* Refactors
+** Dispatch in diverse file.
+- Timer related.
+- Quotes datastuctures.
+- Quotes input methods
+
+** TODO Package
+- Update documentation
+- Make Readme
+- get date.
+- get [future] github url
+
+GET GET!!!
+
+
+* Features
+** Diverses input methods
+
+
+* Others
+
+# §see:
+Namespace? (for function and var.): ¤maybe: replace ':' with '-' to follow convention?
+
+Variable to handle action/description tag symbol
