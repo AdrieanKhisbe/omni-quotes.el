@@ -40,6 +40,7 @@
 ;;; Code:
 
 (require 'dash)
+(require 'omni-quotes-timer)
 
 ;;; ¤> customs:
 (defcustom oq:lighter " Ξ" "OmniQuote lighter (name in modeline) if any." ; §when diffused: Q, (or greek style)
@@ -109,7 +110,7 @@
 ;; §todo: (defvar current) -> structure stockant les sources courrant
 
 ;;; ¤>vars
-(defvar oq:current-quotes-ringlist '("")
+(defvar oq:current-quotes-ringlist '()
   "Ring Storing the Different quotes")
 
 (defun oq:populate-ring () ;§todo: make it call current population method
@@ -134,7 +135,6 @@
 ;; §ring: random or rotating. use a pointer rather than stupidly rotate the list....
 (oq:populate-ring)
 
-(defvar oq:idle-timer nil "OmniQuote timer.") ;§todoo: extract in quote timer.
 (defvar oq:boring-message-regexp
   (mapconcat 'identity oq:boring-message-patterns  "\\|")
   ;;¤if:s s-join..
@@ -156,12 +156,13 @@ The quote will be prefixed by the current `oq:prompt'"
   (interactive)
   (let ((quote (car oq:current-quotes-ringlist))) ;;§make this a get to the data strucure [ encapsulation powa]
 	(setq oq:current-quotes-ringlist (-rotate 1 oq:current-quotes-ringlist))
-	quote)
-  )
+	quote))
 ;; see berkeley: utilities.lisp!!!
 ;; §later: to ring
 
-(defun oq:idle-display-callback ()
+;; §maybe current function: (round, random...)
+
+(defun oq:idle-display-callback () ;§maybe rename of move in timer?
   "OmniQuote Timer callback function."
   ;; maybe: force? optional argument?
   ;; ¤note: check if there is no prompt waiting!!
@@ -170,7 +171,7 @@ The quote will be prefixed by the current `oq:prompt'"
     ;; §todo: after to long idle time disable it (maybe use other timer, or number of iteration. (how to reset?))
     (oq:display-random-quote)))
 
-(defun oq:cant-redisplay()
+(defun oq:cant-redisplay() ;§todo:refactor to conv
   "Function that enable or not Quote to be display. (in order to avoid erasing of important messages)"
   ;; §maybe revert logic for clarity
   (and (current-message)
@@ -179,35 +180,6 @@ The quote will be prefixed by the current `oq:prompt'"
 		  ;; §todo: check if prompt not empty.
 		  ;; when s dep (s-starts-with-p oq:prompt (current-message) )
 		  (string-match oq:boring-message-regexp cm))))))
-
-
-(defun oq:idle-display-start (&optional no-repeat)
-  "Add OmniQuote idle timer with repeat (by default).
-
-With NO-REPEAT idle display will happen once."
-  (interactive)
-  (oq:cancel-and-set-new-timer (run-with-timer oq:idle-interval
-					       (if no-repeat nil oq:repeat-interval)
-					       #'oq:idle-display-callback)))
-
-(defun oq:idle-display-stop ()
-  "Stop OmniQuote Idle timer."
-  (interactive)
-  (oq:cancel-and-set-new-timer nil))
-
-
-;; Helper Methods:
-(defun oq:cancel-if-timer ()
-  ;; ¤note: no need to inline them with `defsubst'
-  "Cancel OmniQuote timer (`oq:idle-timer') if set."
-  (when (timerp oq:idle-timer)
-    (cancel-timer oq:idle-timer)))
-
-(defun oq:cancel-and-set-new-timer (new-timer)
-  "Cancel timer (`oq:idle-timer') and set it to new value.
-Argument NEW-TIMER is the new timer to set (nil to disable)."
-  (oq:cancel-if-timer)
-  (setq oq:idle-timer new-timer))
 
 ;;;###autoload
 (define-minor-mode omni-quotes-mode ; §maybe:plural?
