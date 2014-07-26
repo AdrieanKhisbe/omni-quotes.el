@@ -1,11 +1,42 @@
-;;; §TODO: Make header.
+;;; omni-quotes.el --- Random quotes displayer
+;;
+;; Copyright (C) 2014 Adrien Becchis
+;;
+;; Author: Adrien Becchis <adriean.khisbe@live.fr>
+;; Created:  2014-07-17
+;; Version: 0.1
+;; Keywords: convenience
 
-;;; §draft. idee de quote à charger.
-;;; display random au fur et à mesure. ? ring/list
-;;; Utiliser aussi pour commandes à renforcer trigger. affiche après un certain random.
-;;; §Later: plusieurs catégories.
-;;; §maybe: le binder avec un des trucs de quotes?: forturnes, and co.
-;;; use dash/s/f library?
+;; This file is not part of GNU Emacs.
+
+;;; Commentary:
+;; §todo: install
+;; §todo.. [maybe rebuilt from readme?]
+
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
+;;; Building-Notes:
+;; §TODO: Make header.
+;; §draft.  idee de quote à charger.
+;; display random au fur et à mesure.  ? ring/list
+;; Utiliser aussi pour commandes à renforcer trigger.  affiche après un certain random.
+;; §Later: plusieurs catégories.
+;; §maybe: le binder avec un des trucs de quotes?: forturnes, and co.
+;; use dash/s/f library?
+
+;;; Code:
 
 ;;; ¤> customs:
 (defcustom oq:lighter " Ξ" "OmniQuote lighter (name in modeline) if any" ; §when diffused: Q, (or greek style)
@@ -152,3 +183,7 @@ The quote will be prefixed by the current \\[oq:prompt]"
       (oq:idle-display-stop))))
 
 (provide 'omni-quotes)
+
+(provide 'omni-quotes)
+
+;;; omni-quotes.el ends here
