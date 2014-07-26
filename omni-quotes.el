@@ -39,19 +39,19 @@
 ;;; Code:
 
 ;;; ¤> customs:
-(defcustom oq:lighter " Ξ" "OmniQuote lighter (name in modeline) if any" ; §when diffused: Q, (or greek style)
+(defcustom oq:lighter " Ξ" "OmniQuote lighter (name in modeline) if any." ; §when diffused: Q, (or greek style)
   :type 'string :group 'omni-quotes)
 
-(defcustom oq:idle-interval 3 "OmniQuote idle time, in seconds"
+(defcustom oq:idle-interval 3 "OmniQuote idle time, in seconds."
   :type 'number :group 'omni-quotes)
-(defcustom oq:repeat-interval 20 "OmniQuote repeat time, in seconds"
+(defcustom oq:repeat-interval 20 "OmniQuote repeat time, in seconds."
   :type 'number :group 'omni-quotes)
-(defcustom oq:prompt "» " "Leading prompt of messages"
+(defcustom oq:prompt "» " "Leading prompt of messages OmniQuotes messages."
   :type 'string :group 'omni-quotes)
-(defcustom oq:color-prompt t "Is The Omni-Quote \"prompt\" colored"
+(defcustom oq:color-prompt-p t "Is The Omni-Quote \"prompt\" colored."
   :type 'boolean :group 'omni-quotes) ; §later:face (also for the text)
 
-(when oq:color-prompt
+(when oq:color-prompt-p
   (setq oq:prompt (propertize oq:prompt 'face 'font-lock-keyword-face)))
 
 (defcustom oq:default-quotes
@@ -66,7 +66,7 @@
     "Might be to learn to make function from macros"
 
     ) ; end-of default quotes
-  "My stupid default (omni-)quotes"
+  "My stupid default (omni-)quotes."
   :type '(repeat string) :group 'omni-quotes
   )
 ;; §later:custom: quotes sources
@@ -94,7 +94,7 @@
     ;; §maybe:  wrote, save
     "^Saving file" "^Wrote /"
     )
-  "List of message that can be overwrite by an OmniQuote"
+  "List of message that can be overwrite by an OmniQuote."
   :type '(repeat regexp) :group 'omni-quotes
   )
 ;; §todo:now regexp opt
@@ -103,15 +103,16 @@
 
 ;;; ¤>vars
 ;; variable for the timer object
-(defvar oq:idle-timer nil "OmniQuote timer")
+(defvar oq:idle-timer nil "OmniQuote timer.")
 (defvar oq:boring-message-regexp
   (mapconcat 'identity oq:boring-message-patterns  "\\|")
   ;;¤if:s s-join..
-  "Regexp used to match messages that can be overwriten by a quote. Constructed from \\[oq:boring-message-patterns]")
+  "Regexp used to match messages that can be overwriten by a quote.
+Constructed from `oq:boring-message-patterns'.")
 
 (defun oq:display-random-quote ()
-  "Display a random quote obtained from \\[o:random-quote].
-The quote will be prefixed by the current \\[oq:prompt]"
+  "Display a random quote obtained from `oq:random-quote'.
+The quote will be prefixed by the current `oq:prompt'"
   ;; §maybe: alias in global name space du genre `omni-quotes-random-display'
   (interactive)
   (message "%s%s" oq:prompt
@@ -119,7 +120,7 @@ The quote will be prefixed by the current \\[oq:prompt]"
 	   (oq:random-quote)))
 
 (defun oq:random-quote ()
-  "Get a random quote from \\[oq:default-quotes]"
+  "Get a random quote from `oq:default-quotes'."
   ;; §todo: use current-quote ring structure to create
   (interactive)
   (nth (random (length oq:default-quotes)) oq:default-quotes))
@@ -127,7 +128,7 @@ The quote will be prefixed by the current \\[oq:prompt]"
 ;; §later: to ring
 
 (defun oq:idle-display-callback ()
-  "OmniQuote Timer callback function"
+  "OmniQuote Timer callback function."
   ;; maybe: force? optional argument?
   ;; ¤note: check if there is no prompt waiting!!
   (unless (or (active-minibuffer-window)
@@ -147,14 +148,16 @@ The quote will be prefixed by the current \\[oq:prompt]"
 
 
 (defun oq:idle-display-start (&optional no-repeat)
-  "Add OmniQuote idle timer with repeat (by default)"
+  "Add OmniQuote idle timer with repeat (by default).
+
+With NO-REPEAT idle display will happen once."
   (interactive)
   (oq:cancel-and-set-new-timer (run-with-timer oq:idle-interval
 					       (if no-repeat nil oq:repeat-interval)
 					       #'oq:idle-display-callback)))
 
 (defun oq:idle-display-stop ()
-  "Stop OmniQuote Idle timer"
+  "Stop OmniQuote Idle timer."
   (interactive)
   (oq:cancel-and-set-new-timer nil))
 
@@ -162,12 +165,13 @@ The quote will be prefixed by the current \\[oq:prompt]"
 ;; Helper Methods:
 (defun oq:cancel-if-timer ()
   ;; ¤note: no need to inline them with `defsubst'
-  "Cancel OmniQuote timer (\\[oq:idle-timer]) if set"
+  "Cancel OmniQuote timer (`oq:idle-timer') if set."
   (when (timerp oq:idle-timer)
     (cancel-timer oq:idle-timer)))
 
 (defun oq:cancel-and-set-new-timer (new-timer)
-  "Cancel timer (\\[oq:idle-timer]) and set it to new value."
+  "Cancel timer (`oq:idle-timer') and set it to new value.
+Argument NEW-TIMER is the new timer to set (nil to disable)."
   (oq:cancel-if-timer)
   (setq oq:idle-timer new-timer))
 
