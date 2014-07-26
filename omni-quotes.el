@@ -41,8 +41,11 @@
 
 (require 'dash)
 (require 'omni-quotes-timer)
+(require 'omni-quotes-ring)
 
 ;;; ¤> customs:
+
+;; §see: dispatch customs?
 (defcustom oq:lighter " Ξ" "OmniQuote lighter (name in modeline) if any." ; §when diffused: Q, (or greek style)
   :type 'string :group 'omni-quotes)
 
@@ -105,36 +108,6 @@
   :type '(repeat regexp) :group 'omni-quotes
   )
 
-
-
-;; §todo: (defvar current) -> structure stockant les sources courrant
-
-;;; ¤>vars
-(defvar oq:current-quotes-ringlist '()
-  "Ring Storing the Different quotes")
-
-(defun oq:populate-ring () ;§todo: make it call current population method
-  "Populate `oq:current-quotes-ringlist' with `oq:default-quotes'" ; ¤warn:doc-update-with-function
-  ;; §note: random population method. (maybe to instract in shuffle) [and optimize...]
-  ;; that send a new list
-  (let ((next-insert 0))
-    (-each oq:default-quotes (lambda (quote)
-			       (progn
-				 (setq oq:current-quotes-ringlist (-insert-at next-insert
-									      quote oq:current-quotes-ringlist)
-				       next-insert (random (length oq:current-quotes-ringlist))))))))
-
-  ;; ¤note:beware random 0 give all numbers!
-  ;; (oq:message "Update list"))
-;; §maybe:see cycle (send an infinte copy?)
-;;§tmp; (oq:populate-ring)
-;; (setq oq:current-quotes-ringlist nil)
-;; §TODO: extract a real structure in specific file. (access and modifying api)
-
-;; §draft: force population ;§todo: extract in omni-quotes-ring. or data structure whatever
-;; §ring: random or rotating. use a pointer rather than stupidly rotate the list....
-(oq:populate-ring)
-
 (defvar oq:boring-message-regexp
   (mapconcat 'identity oq:boring-message-patterns  "\\|")
   ;;¤if:s s-join..
@@ -151,14 +124,10 @@ The quote will be prefixed by the current `oq:prompt'"
 	   (oq:random-quote)))
 
 (defun oq:random-quote ()
-  "Get a random quote from `oq:default-quotes'."
+  "Get a random quote."
   ;; §todo: use current-quote ring structure to create
   (interactive)
-  (let ((quote (car oq:current-quotes-ringlist))) ;;§make this a get to the data strucure [ encapsulation powa]
-	(setq oq:current-quotes-ringlist (-rotate 1 oq:current-quotes-ringlist))
-	quote))
-;; see berkeley: utilities.lisp!!!
-;; §later: to ring
+  (oq:ring:get))
 
 ;; §maybe current function: (round, random...)
 
@@ -191,6 +160,10 @@ The quote will be prefixed by the current `oq:prompt'"
     (if omni-quotes-mode
 	(oq:idle-display-start)
       (oq:idle-display-stop))))
+
+;; §TMP!!!!
+(oq:populate-ring)
+
 
 (provide 'omni-quotes)
 
