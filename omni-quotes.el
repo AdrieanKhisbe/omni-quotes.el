@@ -6,6 +6,7 @@
 ;; Created:  2014-07-17
 ;; Version: 0.1
 ;; Keywords: convenience
+;; Package-Requires: ((dash "2.8"))
 
 ;; This file is not part of GNU Emacs.
 
@@ -37,6 +38,8 @@
 ;; use dash/s/f library?
 
 ;;; Code:
+
+(require 'dash)
 
 ;;; ¤> customs:
 (defcustom oq:lighter " Ξ" "OmniQuote lighter (name in modeline) if any." ; §when diffused: Q, (or greek style)
@@ -106,14 +109,30 @@
 ;; §todo: (defvar current) -> structure stockant les sources courrant
 
 ;;; ¤>vars
-(defvar oq:current-quotes-ring (make-ring 42) ; §todo:custom
+(defvar oq:current-quotes-ringlist '("")
   "Ring Storing the Different quotes")
 
 (defun oq:populate-ring () ;§todo: make it call current population method
-  "Populate `oq:current-quotes-ring' with `oq:default-quotes'" ; ¤warn:doc-update-with-function
-  (mapc (lambda(quote) (ring-insert+extend oq:current-quotes-ring quote)) oq:default-quotes))
-;; ¤note: `ring-convert-sequence-to-ring' would have done the job.
-;; §todo: suffle method
+  "Populate `oq:current-quotes-ringlist' with `oq:default-quotes'" ; ¤warn:doc-update-with-function
+  ;; §note: random population method. (maybe to instract in shuffle) [and optimize...]
+  ;; that send a new list
+  (let ((next-insert 0))
+    (-each oq:default-quotes (lambda (quote)
+			       (progn
+				 (setq oq:current-quotes-ringlist (-insert-at next-insert
+									      quote oq:current-quotes-ringlist)
+				       next-insert (random (length oq:current-quotes-ringlist))))))))
+
+  ;; ¤note:beware random 0 give all numbers!
+  ;; (oq:message "Update list"))
+;; §maybe:see cycle (send an infinte copy?)
+;;§tmp; (oq:populate-ring)
+;; (setq oq:current-quotes-ringlist nil)
+;; §TODO: extract a real structure in specific file. (access and modifying api)
+
+;; §draft: force population ;§todo: extract in omni-quotes-ring. or data structure whatever
+;; §ring: random or rotating. use a pointer rather than stupidly rotate the list....
+(oq:populate-ring)
 
 (defvar oq:idle-timer nil "OmniQuote timer.") ;§todoo: extract in quote timer.
 (defvar oq:boring-message-regexp
@@ -135,10 +154,12 @@ The quote will be prefixed by the current `oq:prompt'"
   "Get a random quote from `oq:default-quotes'."
   ;; §todo: use current-quote ring structure to create
   (interactive)
-  (nth (random (length oq:default-quotes)) oq:default-quotes))
+  (let ((quote (car oq:current-quotes-ringlist))) ;;§make this a get to the data strucure [ encapsulation powa]
+	(setq oq:current-quotes-ringlist (-rotate 1 oq:current-quotes-ringlist))
+	quote)
+  )
 ;; see berkeley: utilities.lisp!!!
 ;; §later: to ring
-
 
 (defun oq:idle-display-callback ()
   "OmniQuote Timer callback function."
