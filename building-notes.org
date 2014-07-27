@@ -18,6 +18,16 @@ GET GET!!!
 * Features
 ** Diverses input methods
 
+<<<<<<< Updated upstream
+=======
+** Vrac
+Multitimer, and contextual prompt
+
+interractive way to register functions (and associated keys) to remember. (function and keys to run it)
+saved in some file
+
+See for long messages
+>>>>>>> Stashed changes
 
 * Others
 
@@ -25,3 +35,74 @@ GET GET!!!
 Namespace? (for function and var.): ¤maybe: replace ':' with '-' to follow convention?
 
 Variable to handle action/description tag symbol
+<<<<<<< Updated upstream
+=======
+
+** Old Notes to filter
+Nom? :
+- dreq? display-random-emacs-quote
+- citacon-mode
+- citaquote: cite-a-quote
+- random quote already taken
+- gmaq: give me a quote
+- ~fortune: (random, hopefully interesting, adage)
+- aqad : a quote a minite/day
+- see: quote en latin ou greek
+- et le vainqueur est.... *omni-quote(s)*   (épiphani piscine)
+
+
+Caskfile!
+
+Definir des custom
+fonctions pour les lires depuis un fichier pour générer la custom.
+add some color! (see projectile)
+
+active-minibuffer-window: use this to avoid when prompt for text
+current-message: tester si minimessage existante. (utiliser un préfixe) pour identiier les messages qui viennent de l'addpli
+ genre: > My Quote.
+ (could be defined as a variable then)
+
+colorization du texte avec:
+(message "File %s added to project %s cache."
+          (propertize current-file 'face 'font-lock-keyword-face)
+          (propertize current-project 'face 'font-lock-keyword-face))
+
+(defun color (s)  (propertize s 'face 'font-lock-keyword-face))
+Ne reste pas au niveau de fenetre messages
+
+
+echo-area-clear-hook
+message-truncate-lines
+
+Différentes catégories (liste, couleurs associées).
+maybe: logée dans un buffer à part
+
+ultra bonux: texte défilant à l'aide timer très lent. (et var nombre espace de décalage?)
+
+Use Notify. (notify "Hello" "World")
+
+Prompt custom.
+and associated color.
+(see utf8 > )
+
+** List shuffling
+;; §from: http://www.mail-archive.com/gnu-emacs-sources@gnu.org/msg00034.html
+;; adapt to populate ring.  (§fork to dash?)
+
+#+BEGIN_SRC emacs-lisp
+  (defun shuffle-list (list)
+    "Randomly permute the elements of LIST.
+  All permutations equally likely."
+    (let ((i 0)
+          j ; §empty variables
+          temp
+          (len (length list)))
+      (while (< i len)
+        (setq j (+ i (random (- len i)))) ; prend indice au hasard
+        (setq temp (nth i list))  ; lui passe sa valeur
+        (setcar (nthcdr i list) (nth j list)) ; swap indice i et j?
+        (setcar (nthcdr j list) temp)
+        (setq i (1+ i))))
+    list)
+#+END_SRC
+>>>>>>> Stashed changes
