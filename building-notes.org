@@ -17,9 +17,11 @@ GET GET!!!
 
 * Features
 ** Diverses input methods
+Liste different possible format:
+- simple file (just read one line)
+- complex file: quote, author, date,
+  -> différent format: csv, json [utiliser tools >getlink pour convertir un à autre
 
-<<<<<<< Updated upstream
-=======
 ** Vrac
 Multitimer, and contextual prompt
 
@@ -27,7 +29,6 @@ interractive way to register functions (and associated keys) to remember. (funct
 saved in some file
 
 See for long messages
->>>>>>> Stashed changes
 
 * Others
 
@@ -35,8 +36,7 @@ See for long messages
 Namespace? (for function and var.): ¤maybe: replace ':' with '-' to follow convention?
 
 Variable to handle action/description tag symbol
-<<<<<<< Updated upstream
-=======
+
 
 ** Old Notes to filter
 Nom? :
@@ -105,4 +105,3 @@ and associated color.
         (setq i (1+ i))))
     list)
 #+END_SRC
->>>>>>> Stashed changes

@@ -1,2 +1,5 @@
 .cask
 *.elc
+Quotes
+.start
+# for now. wait till get improved.
