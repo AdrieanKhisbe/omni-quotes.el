@@ -162,7 +162,7 @@ The quote will be prefixed by the current `oq:prompt'"
       (oq:idle-display-stop))))
 
 ;; §TMP!!!!
-(oq:populate-ring)
+(oq:ring:populate)
 
 
 (provide 'omni-quotes)
