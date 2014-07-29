@@ -55,11 +55,13 @@
   :type 'number :group 'omni-quotes)
 (defcustom oq:prompt "» " "Leading prompt of messages OmniQuotes messages."
   :type 'string :group 'omni-quotes)
+;; §maybe will become a separator?
 (defcustom oq:color-prompt-p t "Is The Omni-Quote \"prompt\" colored."
   :type 'boolean :group 'omni-quotes) ; §later:face (also for the text)
 
 (when oq:color-prompt-p
   (setq oq:prompt (propertize oq:prompt 'face 'font-lock-keyword-face)))
+(setq oq:prompt (propertize oq:prompt 'omni-quote-p t))
 
 (defcustom oq:default-quotes
   '(
@@ -121,6 +123,9 @@ The quote will be prefixed by the current `oq:prompt'"
   (interactive)
   (message "%s%s" oq:prompt
 	   ;; §maybe: print in specific buffer? [append with date?]
+	   ;; see with future personal logging library (fading/sliding)
+
+	   ;; §maybe: change format: catégorie > texte.
 	   (oq:random-quote)))
 
 (defun oq:random-quote ()
@@ -128,16 +133,20 @@ The quote will be prefixed by the current `oq:prompt'"
   ;; §todo: use current-quote ring structure to create
   (interactive)
   (oq:ring:get))
+;; §maybe have current function: (round, random...)
+;; §maybe: create an intensive mode. quotes plus raprochées. éventuellement un slidding effect. sans interruption
+;;        jusqu'à la prochaine touche
 
-;; §maybe current function: (round, random...)
 
 (defun oq:idle-display-callback () ;§maybe rename of move in timer?
   "OmniQuote Timer callback function."
-  ;; maybe: force? optional argument?
+  ;; §maybe: force? optional argument? §maybe: extract in other function
   ;; ¤note: check if there is no prompt waiting!!
   (unless (or (active-minibuffer-window)
 	      (oq:cant-redisplay))
     ;; §todo: after to long idle time disable it (maybe use other timer, or number of iteration. (how to reset?))
+    ;;        ptetre un nombre de répétitions dans le timer? (sinon mettre au point une heuristique)
+    ;; §maybe: si il y a quelquechose déjà afficher, simuler un mouvement pour que le idle revienne vite!
     (oq:display-random-quote)))
 
 (defun oq:cant-redisplay() ;§todo:refactor to conv
@@ -145,7 +154,7 @@ The quote will be prefixed by the current `oq:prompt'"
   ;; §maybe revert logic for clarity
   (and (current-message)
        (let ((cm (current-message)))
-	 (not (or (string-prefix-p oq:prompt cm)
+	 (not (or (get-text-property 0 'omni-quote-p cm)
 		  ;; §todo: check if prompt not empty.
 		  ;; when s dep (s-starts-with-p oq:prompt (current-message) )
 		  (string-match oq:boring-message-regexp cm))))))
