@@ -74,8 +74,9 @@
     "Use a fuckying good register level" ; paye ton franglish
     "Might be to learn to make function from macros"
 
-    "Use position register and jump everywher in no time! :)"
+    "Use position register and jump everywhere in no time! :)"
     "Bookmark are a must learn feature!"
+    "Repeat command with C-x zzzzzzzzzzzzzzzzzzzzzz. (and don't fall asleep)"
 
     ) ; end-of default quotes
   "My stupid default (omni-)quotes."
