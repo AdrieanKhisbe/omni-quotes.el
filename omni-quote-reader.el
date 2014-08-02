@@ -37,11 +37,39 @@
 ;; ignore file w
 
 
-;; §how?
+;; ¤parser function should send back
+(defun oq:process-quote-file (file parser)
+  ;; ¤doc!
+  ;; §todo: type checking
+  (with-temp-buffer
+    (insert-file-contents file)
+    (goto-char (point-min))
+    (funcall parser))
 
-;; §maybe make function to load file
-;; (no that usefull if use with-tmp...
-;; or maybe it pass the function that process the buffer!!!! (cf ruby style)
+  ;; §see: what do send back: result. or stored already?
+  )
+
+(defun oq:parser:a-quote-aline ()
+  ;; see comment traiter ligne par ligne?
+  ;; ou tuiliser regexp
+  (let ((quotes '()) )
+    (while (not (eobp))
+      ;; (buffer-substring)
+      (push (thing-at-point 'line) quotes)
+      ;; §later: filter
+      (forward-line))
+    quotes))
+
+
+(defun oq:test ()
+  (oq:process-quote-file
+   "~/AA"
+   'oq:parser:a-quote-aline
+   ))
+;; §todo: create tests
+;; §how?
+(oq:test)
+;; §pb: grab the end of line. should delete this.
 
 
 (provide 'omni-quotes-reader)
