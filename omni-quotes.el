@@ -42,6 +42,7 @@
 (require 'dash)
 (require 'omni-quotes-timer)
 (require 'omni-quotes-ring)
+(require 'omni-quotes-reader)
 
 ;;; ¤> customs:
 
@@ -53,7 +54,7 @@
   :type 'number :group 'omni-quotes)
 (defcustom oq:repeat-interval 20 "OmniQuote repeat time, in seconds."
   :type 'number :group 'omni-quotes)
-(defcustom oq:prompt "» " "Leading prompt of messages OmniQuotes messages."
+(defcustom oq:prompt " » " "Leading prompt of messages OmniQuotes messages."
   :type 'string :group 'omni-quotes)
 ;; §maybe will become a separator?
 (defcustom oq:color-prompt-p t "Is The Omni-Quote \"prompt\" colored."
@@ -134,6 +135,8 @@ The quote will be prefixed by the current `oq:prompt'"
   ;; §todo: use current-quote ring structure to create
   (interactive)
   (oq:ring:get))
+;; §maybe: should have different qute ring for the cateories. how to select-active-regions
+;; §HERE: TODO: IMP!!!! have real object. determine how they should look like. (also group of ring)
 ;; §maybe have current function: (round, random...)
 ;; §maybe: create an intensive mode. quotes plus raprochées. éventuellement un slidding effect. sans interruption
 ;;        jusqu'à la prochaine touche

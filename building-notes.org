@@ -21,7 +21,28 @@ Liste different possible format:
 - simple file (just read one line)
 - complex file: quote, author, date,
   -> différent format: csv, json [utiliser tools >getlink pour convertir un à autre
+** Sources Readers, QuotesGroups
+Vite permettre de pouvoir lire dans un fichier.
+# web et autres verra après
 
+permettre plusieurs fichiers en parallèles: quotes stockées. (structure à trouver)
+# -> chacun son ring, son logger (buffer ou va les stoker)
+  préfixe à gérer
+
+symbole associée: et variable tenant ma liste des symboles
+facile à modifier.
+# maybe: persister les comptes d'utilisation
+
+# ptetre voircomment gère les buffer. -> voir eieio
+
+Utilisation
+>> §IMP: révision, apprentissage langage, motivation
+# conseils perso quand peut de monde autour. Motivationnels
+# lier à here de la journée. [super format]
+
+# voir journal, rpg?
+
+# ¤laterlater events! rappel de calendar?
 ** Vrac
 Multitimer, and contextual prompt
 
