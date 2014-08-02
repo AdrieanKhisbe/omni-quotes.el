@@ -29,13 +29,15 @@
 
 ;; §later: see existing format.
 
+;; §todo: build tests!!!!
 
-;; see how
+;;; ¤> Entry points.
+(defun oq:load-simple-quote-file (file-name)
+  ;; ¤doc!
+  (interactive "f")
+  (oq:process-quote-file file-name 'oq:parser:a-quote-aline))
 
-;; ¤> simple file reader:
-;; format is a line a quote.
-;; ignore file w
-
+;;; ¤> processing function
 
 ;; ¤parser function should send back
 (defun oq:process-quote-file (file parser)
@@ -47,7 +49,18 @@
     (funcall parser))
 
   ;; §see: what do send back: result. or stored already?
+  ;; §post processing. see what to do with this. create a specific ring, by example.
+
+;; §todo: see where should store this. what data structure? ¤HERE!!
   )
+
+
+;;; ¤> parsers
+
+;;; ¤>> simple file reader:
+;; format is a line a quote.
+;; ignore file w
+
 
 (defun oq:parser:a-quote-aline ()
   ;; see comment traiter ligne par ligne?
@@ -56,20 +69,12 @@
     (while (not (eobp))
       ;; (buffer-substring)
       (push (thing-at-point 'line) quotes)
-      ;; §later: filter
       (forward-line))
+      ;; §later: filter lines: trims and so on. (use dash+s lib?)
     quotes))
 
 
-(defun oq:test ()
-  (oq:process-quote-file
-   "~/AA"
-   'oq:parser:a-quote-aline
-   ))
-;; §todo: create tests
-;; §how?
-(oq:test)
-;; §pb: grab the end of line. should delete this.
+;; ¤>> other
 
 
 (provide 'omni-quotes-reader)
