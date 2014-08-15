@@ -11,7 +11,7 @@ Diverse [Personal] Building Notes for omni-tags
 - Make Readme
 - get date.
 - get [future] github url
-
+- rename to omni-quote? (files)
 GET GET!!!
 
 

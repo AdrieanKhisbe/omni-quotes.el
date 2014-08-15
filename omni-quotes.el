@@ -7,6 +7,7 @@
 ;; Version: 0.1
 ;; Keywords: convenience
 ;; Package-Requires: ((dash "2.8"))
+;; ¤todo: add omni-log
 
 ;; This file is not part of GNU Emacs.
 
@@ -40,6 +41,7 @@
 ;;; Code:
 
 (require 'dash)
+(require 'omni-log)
 (require 'omni-quotes-timer)
 (require 'omni-quotes-ring)
 (require 'omni-quotes-reader)
@@ -118,17 +120,20 @@
   "Regexp used to match messages that can be overwriten by a quote.
 Constructed from `oq:boring-message-patterns'.")
 
+(defconst oq:global-quote-log
+  (l-create-log "omni-quotes")
+  "Specific log for omni-quotes")
+(l-create-logger oq:global-quote-log)
+
 (defun oq:display-random-quote ()
   "Display a random quote obtained from `oq:random-quote'.
 The quote will be prefixed by the current `oq:prompt'"
   ;; §maybe: alias in global name space du genre `omni-quotes-random-display'
   (interactive)
-  (message "%s%s" oq:prompt
-	   ;; §maybe: print in specific buffer? [append with date?]
-	   ;; see with future personal logging library (fading/sliding)
-
-	   ;; §maybe: change format: catégorie > texte.
-	   (oq:random-quote)))
+  (log-omni-quotes (format "%s%s" oq:prompt (oq:random-quote))))
+  ;; §maybe: [append with date?]
+  ;; §later: add fading/sliding
+  ;; §maybe: change format: catégorie > texte.
 
 (defun oq:random-quote ()
   "Get a random quote."
