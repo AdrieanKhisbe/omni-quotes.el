@@ -81,14 +81,16 @@
     "Bookmark are a must learn feature!"
     "Repeat command with C-x zzzzzzzzzzzzzzzzzzzzzz. (and don't fall asleep)"
 
+    "Get some projectile and don't throw them away!"
+    "Ace and jump chars!" "Go to the Helm Gouffre!"
+    "Don't be Evil (nor a God)"
+    "Read what you write!"
     ) ; end-of default quotes
   "My stupid default (omni-)quotes."
-  :type '(repeat string) :group 'omni-quotes
-  )
+  :type '(repeat string) :group 'omni-quotes)
 ;; §later:custom: quotes sources
 ;; §later:custom whitelist messages to bypass.
 
-;; §todo: use a ring structure randomly populated at startup
 ;; §later: use category. (revision, stupid quote, emacs tips, emacs binding to learn...)
 ;;         category based on context (ex langage specific tips)
 ;; §later: , offer many method to get quotes (files, web), and use a var holding
@@ -121,9 +123,10 @@
 Constructed from `oq:boring-message-patterns'.")
 
 (defconst oq:global-quote-log
-  (l-create-log "omni-quotes")
+  (let ((tmplog (l-create-log "omni-quotes")))
+    (l-create-logger tmplog)
+    tmplog)
   "Specific log for omni-quotes")
-(l-create-logger oq:global-quote-log)
 
 (defun oq:display-random-quote ()
   "Display a random quote obtained from `oq:random-quote'.
@@ -131,23 +134,24 @@ The quote will be prefixed by the current `oq:prompt'"
   ;; §maybe: alias in global name space du genre `omni-quotes-random-display'
   (interactive)
   (log-omni-quotes (format "%s%s" oq:prompt (oq:random-quote))))
-  ;; §maybe: [append with date?]
-  ;; §later: add fading/sliding
-  ;; §maybe: change format: catégorie > texte.
+;; §maybe: [append with date?]
+;; §later: add fading/sliding
+;; §maybe: change format: catégorie > texte.
+;; §see: refactor to have specific logger for log? (fuction sending quote and logger?)
 
 (defun oq:random-quote ()
   "Get a random quote."
   ;; §todo: use current-quote ring structure to create
   (interactive)
   (oq:ring:get))
-;; §maybe: should have different qute ring for the cateories. how to select-active-regions
+;; §maybe: should have different quote rings for the categories. how to select-active-regions
 ;; §HERE: TODO: IMP!!!! have real object. determine how they should look like. (also group of ring)
 ;; §maybe have current function: (round, random...)
 ;; §maybe: create an intensive mode. quotes plus raprochées. éventuellement un slidding effect. sans interruption
 ;;        jusqu'à la prochaine touche
 
 
-(defun oq:idle-display-callback () ;§maybe rename of move in timer?
+(defun oq:idle-display-callback () ; §maybe rename of move in timer?
   "OmniQuote Timer callback function."
   ;; §maybe: force? optional argument? §maybe: extract in other function
   ;; ¤note: check if there is no prompt waiting!!

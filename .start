@@ -1,2 +1,2 @@
-cask exec emacs -Q -nw -L ../omni-log/ -L . -l omni-log.el -l omni-quotes.el omni-quotes.el -f omni-quotes-mode
+cask exec emacs --light -nw -L ../omni-log/ -L . -l omni-log.el -l omni-quotes.el omni-quotes.el -f omni-quotes-mode
 # launce et charge le mode
