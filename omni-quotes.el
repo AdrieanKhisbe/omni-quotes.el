@@ -1,6 +1,6 @@
 ;;; omni-quotes.el --- Random quotes displayer
 ;;
-;; Copyright (C) 2014 Adrien Becchis
+;; Copyright (C) 2014-2015 Adrien Becchis
 ;;
 ;; Author: Adrien Becchis <adriean.khisbe@live.fr>
 ;; Created:  2014-07-17
@@ -10,10 +10,6 @@
 ;; ¤todo: add omni-log
 
 ;; This file is not part of GNU Emacs.
-
-;;; Commentary:
-;; §todo: install
-;; §todo.. [maybe rebuilt from readme?]
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -28,9 +24,10 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+;;; Commentary:
+;; §todo: rebuilt from readme
 
 ;;; Building-Notes:
-;; §TODO: Make header.
 ;; §draft.  idee de quote à charger.
 ;; display random au fur et à mesure.  ? ring/list
 ;; Utiliser aussi pour commandes à renforcer trigger.  affiche après un certain random.
@@ -49,7 +46,8 @@
 ;;; ¤> customs:
 
 ;; §see: dispatch customs?
-(defcustom oq:lighter " Ξ" "OmniQuote lighter (name in modeline) if any." ; §when diffused: Q, (or greek style)
+(defcustom oq:lighter " Ξ" "OmniQuote lighter (name in modeline) if any."
+  ;; §when diffused: Q, (or greek style)
   :type 'string :group 'omni-quotes)
 
 (defcustom oq:idle-interval 3 "OmniQuote idle time, in seconds."
@@ -84,7 +82,6 @@
     "Get some projectile and don't throw them away!"
     "Ace and jump chars!" "Go to the Helm Gouffre!"
     "Don't be Evil (nor a God)"
-    "Read what you write!"
     ) ; end-of default quotes
   "My stupid default (omni-)quotes."
   :type '(repeat string) :group 'omni-quotes)
@@ -156,7 +153,7 @@ The quote will be prefixed by the current `oq:prompt'"
   ;; §maybe: force? optional argument? §maybe: extract in other function
   ;; ¤note: check if there is no prompt waiting!!
   (unless (or (active-minibuffer-window)
-	      (oq:cant-redisplay))
+              (oq:cant-redisplay))
     ;; §todo: after to long idle time disable it (maybe use other timer, or number of iteration. (how to reset?))
     ;;        ptetre un nombre de répétitions dans le timer? (sinon mettre au point une heuristique)
     ;; §maybe: si il y a quelquechose déjà afficher, simuler un mouvement pour que le idle revienne vite!
@@ -167,10 +164,10 @@ The quote will be prefixed by the current `oq:prompt'"
   ;; §maybe revert logic for clarity
   (and (current-message)
        (let ((cm (current-message)))
-	 (not (or (get-text-property 0 'omni-quote-p cm)
-		  ;; §todo: check if prompt not empty.
-		  ;; when s dep (s-starts-with-p oq:prompt (current-message) )
-		  (string-match oq:boring-message-regexp cm))))))
+         (not (or (get-text-property 0 'omni-quote-p cm)
+                  ;; §todo: check if prompt not empty.
+                  ;; when s dep (s-starts-with-p oq:prompt (current-message) )
+                  (string-match oq:boring-message-regexp cm))))))
 
 ;;;###autoload
 (define-minor-mode omni-quotes-mode ; §maybe:plural?
@@ -180,13 +177,11 @@ The quote will be prefixed by the current `oq:prompt'"
   ;; :group §todo:find-one?
   (progn
     (if omni-quotes-mode
-	(oq:idle-display-start)
+        (oq:idle-display-start)
       (oq:idle-display-stop))))
 
 ;; §TMP!!!!
 (oq:ring:populate)
 
-
 (provide 'omni-quotes)
-
 ;;; omni-quotes.el ends here

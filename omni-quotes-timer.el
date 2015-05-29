@@ -1,6 +1,6 @@
 ;;; omni-quotes-timer.el --- Timer functions for OmniQuotes
 ;;
-;; Copyright (C) 2014 Adrien Becchis
+;; Copyright (C) 2014-2015 Adrien Becchis
 ;;
 ;; Author: Adrien Becchis <adriean.khisbe@live.fr>
 ;; Keywords: convenience
@@ -35,8 +35,8 @@
 With NO-REPEAT idle display will happen once."
   (interactive)
   (oq:cancel-and-set-new-timer (run-with-timer oq:idle-interval
-					       (if no-repeat nil oq:repeat-interval)
-					       #'oq:idle-display-callback)))
+                                               (if no-repeat nil oq:repeat-interval)
+                                               #'oq:idle-display-callback)))
 
 (defun oq:idle-display-stop ()
   "Stop OmniQuote Idle timer."

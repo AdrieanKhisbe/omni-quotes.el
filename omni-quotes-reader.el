@@ -1,6 +1,6 @@
 ;;; omni-quotes-reader.el --- Utilities to read "quotes" files
 ;;
-;; Copyright (C) 2014 Adrien Becchis
+;; Copyright (C) 2014-2015 Adrien Becchis
 ;;
 ;; Author: Adrien Becchis <adriean.khisbe@live.fr>
 ;; Keywords: convenience
@@ -75,7 +75,6 @@
 
 
 ;; ¤>> other
-
 
 (provide 'omni-quotes-reader)
 ;;; omni-quotes-reader.el ends here

@@ -3,7 +3,8 @@
 
 (package-file "omni-quotes.el")
 
-(depends-on "dash");;
+(files "*.el")
+
 ;; (depends-on "omni-log" :git "https://bitbucket.com/AdrieanKhisbe/omni-log.el.git" :ref "cb71659")
 ;; ¤note: alternative spec :branch "next")
 ;; :files ("*.el" (:exclude "magit-svn.el")))
@@ -13,4 +14,4 @@
  (depends-on "f")
  (depends-on "ecukes")
  (depends-on "ert-runner")
- (depends-on "el-mock")) ;§see how to add to production
+ (depends-on "el-mock"))

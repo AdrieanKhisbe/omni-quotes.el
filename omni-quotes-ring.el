@@ -1,6 +1,6 @@
 ;;; omni-quotes-ring.el --- Datastructure to old [Omni] Quotes
 ;;
-;; Copyright (C) 2014 Adrien Becchis
+;; Copyright (C) 2014-2015 Adrien Becchis
 ;;
 ;; Author: Adrien Becchis <adriean.khisbe@live.fr>
 ;; Keywords: convenience
@@ -26,8 +26,10 @@
 
 ;;; Code:
 
-;; §todo: (defvar current) -> structure stockant les sources courrant
 
+(require 'dash)
+
+;; §todo: (defvar current) -> structure stockant les sources courrant
 ;;; ¤>vars
 (defvar oq:ring:current-quotes (make-ring 42) ;§see:size
   "Ring Storing the Different quotes")
@@ -36,7 +38,8 @@
   "Pointer to the current element of the quote ring.")
 
 (defun oq:ring:populate () ;§todo: make it call current population method
-  "Populate `oq:ring:current-quoteslist' with `oq:default-quotes'" ; ¤warn:doc-update-with-function
+  "Populate `oq:ring:current-quoteslist' with `oq:default-quotes'"
+  ;; ¤warn:doc-update-with-function
   ;; §note: random population method. (maybe to instract in shuffle) [and optimize...]
   ;; that send a new list
 
@@ -44,14 +47,14 @@
   (let ((next-insert 0)
 	(shuffled-list nil))
     ;; §todo: extract shuffle list
-    (-each oq:default-quotes (lambda (quote)
-			       (progn  (setq shuffled-list (-insert-at next-insert
-								       quote shuffled-list)
-				       next-insert (random (length shuffled-list))))))
+    (-each oq:default-quotes
+      (lambda (quote)
+        (progn  (setq shuffled-list (-insert-at next-insert quote shuffled-list)
+                      next-insert (random (length shuffled-list))))))
     (-each shuffled-list (lambda(quote)(ring-insert oq:ring:current-quotes quote )))))
 
-  ;; ¤note:beware random 0 give all numbers!
-  ;; (oq:message "Update list"))
+;; ¤note:beware random 0 give all numbers!
+;; (oq:message "Update list"))
 ;; §maybe:see cycle (send an infinte copy?)
 ;;§tmp; (oq:ring:populate)
 ;; (setq oq:ring:current-quoteslist nil)
@@ -65,7 +68,8 @@
   (let ((quote (ring-ref oq:ring:current-quotes oq:ring:current-pointer))) ;§here TOTEST
     (setq oq:ring:current-pointer (1+ oq:ring:current-pointer))
     quote))
-;; §later: prev
+
+;;§later: prev
 (defun oq:ring:random ()
   "Give a random quote from the ring"
   ;;§here §TOTEST
