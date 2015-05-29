@@ -32,15 +32,15 @@
 ;; §todo: build tests!!!!
 
 ;;; ¤> Entry points.
-(defun oq:load-simple-quote-file (file-name)
+(defun omni-quotes-load-simple-quote-file (file-name)
   ;; ¤doc!
   (interactive "f")
-  (oq:process-quote-file file-name 'oq:parser:a-quote-aline))
+  (omni-quotes-process-quote-file file-name 'omni-quotes-parser-a-quote-aline))
 
 ;;; ¤> processing function
 
 ;; ¤parser function should send back
-(defun oq:process-quote-file (file parser)
+(defun omni-quotes-process-quote-file (file parser)
   ;; ¤doc!
   ;; §todo: type checking
   (with-temp-buffer
@@ -62,7 +62,7 @@
 ;; ignore file w
 
 
-(defun oq:parser:a-quote-aline ()
+(defun omni-quotes-parser-a-quote-aline ()
   ;; see comment traiter ligne par ligne?
   ;; ou tuiliser regexp
   (let ((quotes '()) )

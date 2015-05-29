@@ -31,53 +31,53 @@
 
 ;; §todo: (defvar current) -> structure stockant les sources courrant
 ;;; ¤>vars
-(defvar oq:ring:current-quotes (make-ring 42) ;§see:size
-  "Ring Storing the Different quotes")
+(defvar omni-quotes-ring-current-quotes (make-ring 42) ;§see:size
+  "Ring Storing the Different quotes.")
 
-(defvar oq:ring:current-pointer 0
+(defvar omni-quotes-ring-current-pointer 0
   "Pointer to the current element of the quote ring.")
 
-(defun oq:ring:populate () ;§todo: make it call current population method
-  "Populate `oq:ring:current-quoteslist' with `oq:default-quotes'"
+(defun omni-quotes-ring-populate () ;§todo: make it call current population method
+  "Populate `omni-quotes-ring-current-quoteslist' with `omni-quotes-default-quotes'."
   ;; ¤warn:doc-update-with-function
   ;; §note: random population method. (maybe to instract in shuffle) [and optimize...]
   ;; that send a new list
 
   ;; §maybe: empty ring?
   (let ((next-insert 0)
-	(shuffled-list nil))
+        (shuffled-list nil))
     ;; §todo: extract shuffle list
-    (-each oq:default-quotes
+    (-each omni-quotes-default-quotes
       (lambda (quote)
         (progn  (setq shuffled-list (-insert-at next-insert quote shuffled-list)
                       next-insert (random (length shuffled-list))))))
-    (-each shuffled-list (lambda(quote)(ring-insert oq:ring:current-quotes quote )))))
+    (-each shuffled-list (lambda(quote)(ring-insert omni-quotes-ring-current-quotes quote )))))
 
 ;; ¤note:beware random 0 give all numbers!
-;; (oq:message "Update list"))
+;; (omni-quotes-message "Update list"))
 ;; §maybe:see cycle (send an infinte copy?)
-;;§tmp; (oq:ring:populate)
-;; (setq oq:ring:current-quoteslist nil)
+;;§tmp; (omni-quotes-ring-populate)
+;; (setq omni-quotes-ring-current-quoteslist nil)
 ;; §TODO: extract a real structure in specific file. (access and modifying api)
 
 ;; §draft: force population ;§todo: extract in omni-quotes-ring. or data structure whatever
-;; §ring: random or rotating. use a pointer rather than stupidly rotate the list....
+;; §ring- random or rotating. use a pointer rather than stupidly rotate the list....
 
-(defun oq:ring:next()
-  "Send next quote of the ring and move pointer"
-  (let ((quote (ring-ref oq:ring:current-quotes oq:ring:current-pointer))) ;§here TOTEST
-    (setq oq:ring:current-pointer (1+ oq:ring:current-pointer))
+(defun omni-quotes-ring-next()
+  "Send next quote of the ring and move pointer."
+  (let ((quote (ring-ref omni-quotes-ring-current-quotes omni-quotes-ring-current-pointer))) ;§here TOTEST
+    (setq omni-quotes-ring-current-pointer (1+ omni-quotes-ring-current-pointer))
     quote))
 
 ;;§later: prev
-(defun oq:ring:random ()
-  "Give a random quote from the ring"
+(defun omni-quotes-ring-random ()
+  "Give a random quote from the ring."
   ;;§here §TOTEST
-  (ring-ref oq:ring:current-quotes (random (ring-size oq:ring:current-quotes))))
+  (ring-ref omni-quotes-ring-current-quotes (random (ring-size omni-quotes-ring-current-quotes))))
 
-(defun oq:ring:get ()
+(defun omni-quotes-ring-get ()
   ;; §maybe: different accès method. Get method dispatch
-  (oq:ring:next)
+  (omni-quotes-ring-next)
 
   ;; §later: var saying method that should be call
   )

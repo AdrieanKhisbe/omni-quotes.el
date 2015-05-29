@@ -46,25 +46,25 @@
 ;;; ¤> customs:
 
 ;; §see: dispatch customs?
-(defcustom oq:lighter " Ξ" "OmniQuote lighter (name in modeline) if any."
+(defcustom omni-quotes-lighter " Ξ" "OmniQuote lighter (name in modeline) if any."
   ;; §when diffused: Q, (or greek style)
   :type 'string :group 'omni-quotes)
 
-(defcustom oq:idle-interval 3 "OmniQuote idle time, in seconds."
+(defcustom omni-quotes-idle-interval 3 "OmniQuote idle time, in seconds."
   :type 'number :group 'omni-quotes)
-(defcustom oq:repeat-interval 20 "OmniQuote repeat time, in seconds."
+(defcustom omni-quotes-repeat-interval 20 "OmniQuote repeat time, in seconds."
   :type 'number :group 'omni-quotes)
-(defcustom oq:prompt " » " "Leading prompt of messages OmniQuotes messages."
+(defcustom omni-quotes-prompt " » " "Leading prompt of messages OmniQuotes messages."
   :type 'string :group 'omni-quotes)
 ;; §maybe will become a separator?
-(defcustom oq:color-prompt-p t "Is The Omni-Quote \"prompt\" colored."
+(defcustom omni-quotes-color-prompt-p t "Is The Omni-Quote \"prompt\" colored."
   :type 'boolean :group 'omni-quotes) ; §later:face (also for the text)
 
-(when oq:color-prompt-p
-  (setq oq:prompt (propertize oq:prompt 'face 'font-lock-keyword-face)))
-(setq oq:prompt (propertize oq:prompt 'omni-quote-p t))
+(when omni-quotes-color-prompt-p
+  (setq omni-quotes-prompt (propertize omni-quotes-prompt 'face 'font-lock-keyword-face)))
+(setq omni-quotes-prompt (propertize omni-quotes-prompt 'omni-quote-p t))
 
-(defcustom oq:default-quotes
+(defcustom omni-quotes-default-quotes
   '(
     ;; Emacs custos
     "Customization is the corner stone of Emacs"
@@ -93,7 +93,7 @@
 ;; §later: , offer many method to get quotes (files, web), and use a var holding
 ;;        current function used to et quote. (call this several tim to populate the ring)
 
-(defcustom oq:boring-message-patterns
+(defcustom omni-quotes-boring-message-patterns
   '(
     "^Omni-Quotes mode enabled"
     "^Mark set"
@@ -113,34 +113,34 @@
   :type '(repeat regexp) :group 'omni-quotes
   )
 
-(defvar oq:boring-message-regexp
-  (mapconcat 'identity oq:boring-message-patterns  "\\|")
+(defvar omni-quotes-boring-message-regexp
+  (mapconcat 'identity omni-quotes-boring-message-patterns  "\\|")
   ;;¤if:s s-join..
   "Regexp used to match messages that can be overwriten by a quote.
-Constructed from `oq:boring-message-patterns'.")
+Constructed from `omni-quotes-boring-message-patterns'.")
 
-(defconst oq:global-quote-log
+(defconst omni-quotes-global-quote-log
   (let ((tmplog (l-create-log "omni-quotes")))
     (l-create-logger tmplog)
     tmplog)
   "Specific log for omni-quotes")
 
-(defun oq:display-random-quote ()
-  "Display a random quote obtained from `oq:random-quote'.
-The quote will be prefixed by the current `oq:prompt'"
+(defun omni-quotes-display-random-quote ()
+  "Display a random quote obtained from `omni-quotes-random-quote'.
+The quote will be prefixed by the current `omni-quotes-prompt'"
   ;; §maybe: alias in global name space du genre `omni-quotes-random-display'
   (interactive)
-  (log-omni-quotes (format "%s%s" oq:prompt (oq:random-quote))))
+  (log-omni-quotes (format "%s%s" omni-quotes-prompt (omni-quotes-random-quote))))
 ;; §maybe: [append with date?]
 ;; §later: add fading/sliding
 ;; §maybe: change format: catégorie > texte.
 ;; §see: refactor to have specific logger for log? (fuction sending quote and logger?)
 
-(defun oq:random-quote ()
+(defun omni-quotes-random-quote ()
   "Get a random quote."
   ;; §todo: use current-quote ring structure to create
   (interactive)
-  (oq:ring:get))
+  (omni-quotes-ring-get))
 ;; §maybe: should have different quote rings for the categories. how to select-active-regions
 ;; §HERE: TODO: IMP!!!! have real object. determine how they should look like. (also group of ring)
 ;; §maybe have current function: (round, random...)
@@ -148,40 +148,40 @@ The quote will be prefixed by the current `oq:prompt'"
 ;;        jusqu'à la prochaine touche
 
 
-(defun oq:idle-display-callback () ; §maybe rename of move in timer?
+(defun omni-quotes-idle-display-callback () ; §maybe rename of move in timer?
   "OmniQuote Timer callback function."
   ;; §maybe: force? optional argument? §maybe: extract in other function
   ;; ¤note: check if there is no prompt waiting!!
   (unless (or (active-minibuffer-window)
-              (oq:cant-redisplay))
+              (omni-quotes-cant-redisplay))
     ;; §todo: after to long idle time disable it (maybe use other timer, or number of iteration. (how to reset?))
     ;;        ptetre un nombre de répétitions dans le timer? (sinon mettre au point une heuristique)
     ;; §maybe: si il y a quelquechose déjà afficher, simuler un mouvement pour que le idle revienne vite!
-    (oq:display-random-quote)))
+    (omni-quotes-display-random-quote)))
 
-(defun oq:cant-redisplay() ;§todo:refactor to conv
+(defun omni-quotes-cant-redisplay() ;§todo:refactor to conv
   "Function that enable or not Quote to be display. (in order to avoid erasing of important messages)"
   ;; §maybe revert logic for clarity
   (and (current-message)
        (let ((cm (current-message)))
          (not (or (get-text-property 0 'omni-quote-p cm)
                   ;; §todo: check if prompt not empty.
-                  ;; when s dep (s-starts-with-p oq:prompt (current-message) )
-                  (string-match oq:boring-message-regexp cm))))))
+                  ;; when s dep (s-starts-with-p omni-quotes-prompt (current-message) )
+                  (string-match omni-quotes-boring-message-regexp cm))))))
 
 ;;;###autoload
 (define-minor-mode omni-quotes-mode ; §maybe:plural?
   "Display random quotes when idle."
-  :lighter oq:lighter
+  :lighter omni-quotes-lighter
   :global t
   ;; :group §todo:find-one?
   (progn
     (if omni-quotes-mode
-        (oq:idle-display-start)
-      (oq:idle-display-stop))))
+        (omni-quotes-idle-display-start)
+      (omni-quotes-idle-display-stop))))
 
 ;; §TMP!!!!
-(oq:ring:populate)
+(omni-quotes-ring-populate)
 
 (provide 'omni-quotes)
 ;;; omni-quotes.el ends here
