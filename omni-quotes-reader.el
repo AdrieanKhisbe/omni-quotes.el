@@ -28,7 +28,7 @@
 ;;; Code:
 
 ;; §later: see existing format.
-
+;; §todo: use F
 ;; §todo: build tests!!!!
 
 ;;; ¤> Entry points.

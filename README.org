@@ -10,7 +10,7 @@
 ** Description
 
 Omni Quotes is there to display quotes on you /Echo Area/ when you are idle.
-Whether it's funny stuff, inspirational quotes, or this you try to remember.
+Whether it's funny stuff, inspirational quotes, or something you try to remember.
 
 ** Usage
 

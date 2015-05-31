@@ -26,7 +26,9 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ;;; Commentary:
-;; §TODO
+;; Omni Quotes is there to display quotes on you /Echo Area/ when you are idle.
+;; Whether it's funny stuff, inspirational quotes, or something you try to remember.
+
 
 ;;; Building-Notes:
 ;; §draft.  idee de quote à charger.
@@ -34,7 +36,6 @@
 ;; Utiliser aussi pour commandes à renforcer trigger.  affiche après un certain random.
 ;; §Later: plusieurs catégories.
 ;; §maybe: le binder avec un des trucs de quotes?: forturnes, and co.
-;; use dash/s/f library?
 
 ;;; Code:
 
