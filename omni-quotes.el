@@ -6,8 +6,9 @@
 ;; Created:  2014-07-17
 ;; Version: 0.1
 ;; Keywords: convenience
-;; Package-Requires: ((dash "2.8"))
-;; ¤todo: add omni-log
+;; Package-Requires: ((dash "2.8") (omni-log "0.1.0"))
+;; Url: https://github.com/AdrieanKhisbe/omni-quotes.el
+
 
 ;; This file is not part of GNU Emacs.
 
@@ -25,7 +26,7 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ;;; Commentary:
-;; §todo: rebuilt from readme
+;; §TODO
 
 ;;; Building-Notes:
 ;; §draft.  idee de quote à charger.
@@ -120,10 +121,10 @@
 Constructed from `omni-quotes-boring-message-patterns'.")
 
 (defconst omni-quotes-global-quote-log
-  (let ((tmplog (l-create-log "omni-quotes")))
-    (l-create-logger tmplog)
+  (let ((tmplog (l-create-logger "omni-quotes")))
+    (l-create-log-function tmplog)
     tmplog)
-  "Specific log for omni-quotes")
+  "Specific logger for omni-quotes.")
 
 (defun omni-quotes-display-random-quote ()
   "Display a random quote obtained from `omni-quotes-random-quote'.
@@ -170,7 +171,7 @@ The quote will be prefixed by the current `omni-quotes-prompt'"
                   (string-match omni-quotes-boring-message-regexp cm))))))
 
 ;;;###autoload
-(define-minor-mode omni-quotes-mode ; §maybe:plural?
+(define-minor-mode omni-quotes-mode
   "Display random quotes when idle."
   :lighter omni-quotes-lighter
   :global t
