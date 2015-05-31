@@ -49,9 +49,9 @@
     ;; §todo: extract shuffle list
     (-each omni-quotes-default-quotes
       (lambda (quote)
-        (progn  (setq shuffled-list (-insert-at next-insert quote shuffled-list)
+        (progn (setq shuffled-list (-insert-at next-insert quote shuffled-list)
                       next-insert (random (length shuffled-list))))))
-    (-each shuffled-list (lambda(quote)(ring-insert omni-quotes-ring-current-quotes quote )))))
+    (-each shuffled-list (lambda(quote)(ring-insert omni-quotes-ring-current-quotes quote)))))
 
 ;; ¤note:beware random 0 give all numbers!
 ;; (omni-quotes-message "Update list"))
