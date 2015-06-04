@@ -122,8 +122,8 @@
 Constructed from `omni-quotes-boring-message-patterns'.")
 
 (defconst omni-quotes-global-quote-log
-  (let ((tmplog (l-create-logger "omni-quotes")))
-    (l-create-log-function tmplog)
+  (let ((tmplog (omni-log-create-logger "omni-quotes")))
+    (omni-log-create-log-function tmplog)
     tmplog)
   "Specific logger for omni-quotes.")
 
