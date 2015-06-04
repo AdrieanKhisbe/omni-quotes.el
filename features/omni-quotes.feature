@@ -1,9 +1,10 @@
-Feature: Do Some things
-  In order to do something
-  As a user
-  I want to do something
+Feature: Display Random quote
+  In order to be inspired
+  As a iddle emacs user
+  I want to do have quotes display
 
-  Scenario: Do Something
+  Scenario: Ask for quotes
+  # §TODO
     Given I have "something"
     When I have "something"
     Then I should have "something"
