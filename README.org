@@ -1,8 +1,8 @@
 * Omni-Quotes
 
 [[https://travis-ci.org/AdrieanKhisbe/omni-log.el][file:https://travis-ci.org/AdrieanKhisbe/omni-quotes.el.svg]]
-# [[http://melpa.org/#/omni-log][file:http://melpa.org/packages/omni-quotes-badge.svg]]
-# [[http://stable.melpa.org/#/omni-log][file:http://stable.melpa.org/packages/omni-quotes-badge.svg]]
+[[http://melpa.org/#/omni-log][file:http://melpa.org/packages/omni-quotes-badge.svg]]
+[[http://stable.melpa.org/#/omni-log][file:http://stable.melpa.org/packages/omni-quotes-badge.svg]]
 [[http://www.gnu.org/licenses/gpl-3.0.html][http://img.shields.io/:license-gpl3-blue.svg]]
 
 /Display all the Quotes!/
