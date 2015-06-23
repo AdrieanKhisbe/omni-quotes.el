@@ -11,6 +11,10 @@
 
 (add-to-list 'load-path omni-quotes-root-path)
 
+(require 'undercover)
+(undercover "*.el" "omni-quotes/*.el"
+            (:exclude "*-test.el")
+            (:report-file "/tmp/undercover-report.json"))
 (require 'omni-quotes)
 (require 'espuds)
 (require 'ert)

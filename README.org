@@ -1,8 +1,10 @@
 * Omni-Quotes
 
 [[https://travis-ci.org/AdrieanKhisbe/omni-quotes.el][file:https://travis-ci.org/AdrieanKhisbe/omni-quotes.el.svg]]
+[[https://coveralls.io/r/AdrieanKhisbe/omni-quotes.el][file:https://coveralls.io/repos/AdrieanKhisbe/omni-quotes.el/badge.svg]]
 [[http://melpa.org/#/omni-quotes][file:http://melpa.org/packages/omni-quotes-badge.svg]]
-[[http://stable.melpa.org/#/omni-quotes][file:http://stable.melpa.org/packages/omni-quotes-badge.svg]]
+# [[http://stable.melpa.org/#/omni-quotes][file:http://stable.melpa.org/packages/omni-quotes-badge.svg]]
+# [[https://github.com/AdrieanKhisbe/omni-quotes.el/tags][file:https://img.shields.io/github/tag/AdrieanKhisbe/omni-quotes.el.svg]]
 [[http://www.gnu.org/licenses/gpl-3.0.html][http://img.shields.io/:license-gpl3-blue.svg]]
 
 /Display all the Quotes!/
