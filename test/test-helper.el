@@ -31,5 +31,4 @@
 (require 'omni-quotes-reader (f-expand "omni-quotes-reader" omni-quotes-root-path))
 (require 'omni-quotes (f-expand "omni-quotes" omni-quotes-root-path))
 
-(provide 'test-helper)
 ;;; test-helper.el ends here
