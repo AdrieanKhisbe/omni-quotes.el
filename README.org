@@ -1,4 +1,4 @@
-* Omni-Quotes
+#+TITLE: Omni-Quotes
 
 [[https://travis-ci.org/AdrieanKhisbe/omni-quotes.el][file:https://travis-ci.org/AdrieanKhisbe/omni-quotes.el.svg]]
 [[https://coveralls.io/r/AdrieanKhisbe/omni-quotes.el][file:https://coveralls.io/repos/AdrieanKhisbe/omni-quotes.el/badge.svg]]
@@ -9,12 +9,12 @@
 
 /Display all the Quotes!/
 
-** Description
+* Description
 
 Omni Quotes is there to display quotes on you /Echo Area/ when you are idle.
 Whether it's funny stuff, inspirational quotes, or something you try to remember.
 
-** Usage
+* Usage
 
 Just turn on =omni-quotes-mode=, and quotes will appear when you are idle enough.
 
@@ -22,11 +22,11 @@ So far system to enable you to load quotes from files, or other sources has not 
 
 It's on the way, and the appropriate documentation will then appear around here :)
 
-** Installation
+* Installation
 Put it on the path and load it, or wait the melpa recipe to it the ground!
-So that it takes care of the =omni-log= dependancy.
+So that it takes care of the =omni-log= dependency.
 
-** Notes
+* Notes
 
 This is an inbuilding package, hence that huge number of building comments accross the code.
 (usage of =omni-tags= is recommended :D).
