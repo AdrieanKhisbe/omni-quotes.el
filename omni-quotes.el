@@ -35,7 +35,7 @@
 ;; display random au fur et à mesure.  ? ring/list
 ;; Utiliser aussi pour commandes à renforcer trigger.  affiche après un certain random.
 ;; §Later: plusieurs catégories.
-;; §maybe: le binder avec un des trucs de quotes?: forturnes, and co.
+;; §maybe: le binder avec un des trucs de quotes?: fortunes, and co.
 
 ;;; Code:
 
@@ -46,10 +46,8 @@
 (require 'omni-quotes-reader)
 
 ;;; ¤> customs:
-
-;; §see: dispatch customs?
 (defcustom omni-quotes-lighter " Ξ" "OmniQuote lighter (name in modeline) if any."
-  ;; §when diffused: Q, (or greek style)
+  ;; §maybe: replace Q, (or greek style)
   :type 'string :group 'omni-quotes)
 
 (defcustom omni-quotes-idle-interval 3 "OmniQuote idle time, in seconds."
@@ -87,12 +85,13 @@
     ) ; end-of default quotes
   "My stupid default (omni-)quotes."
   :type '(repeat string) :group 'omni-quotes)
+
 ;; §later:custom: quotes sources
-;; §later:custom whitelist messages to bypass.
+;; §later:custom whitelist messages to bypass!!
 
 ;; §later: use category. (revision, stupid quote, emacs tips, emacs binding to learn...)
 ;;         category based on context (ex langage specific tips)
-;; §later: , offer many method to get quotes (files, web), and use a var holding
+;; §later: offer many method to get quotes (files, web), and use a var holding
 ;;        current function used to et quote. (call this several tim to populate the ring)
 
 (defcustom omni-quotes-boring-message-patterns
@@ -108,7 +107,6 @@
     ;; use-package
     "^Configuring package" "^Loading package" "^use-package idle:"
     "^Here is not Git/Mercurial work tree"
-    ;; §maybe:  wrote, save
     "^Saving file" "^Wrote /"
     )
   "List of message that can be overwrite by an OmniQuote."
@@ -117,7 +115,6 @@
 
 (defvar omni-quotes-boring-message-regexp
   (mapconcat 'identity omni-quotes-boring-message-patterns  "\\|")
-  ;;¤if:s s-join..
   "Regexp used to match messages that can be overwriten by a quote.
 Constructed from `omni-quotes-boring-message-patterns'.")
 
@@ -134,7 +131,7 @@ The quote will be prefixed by the current `omni-quotes-prompt'"
   (interactive)
   (log-omni-quotes (format "%s%s" omni-quotes-prompt (omni-quotes-random-quote))))
 ;; §maybe: [append with date?]
-;; §later: add fading/sliding
+;; §later: add fading/sliding ->>? rather omni-log level feature
 ;; §maybe: change format: catégorie > texte.
 ;; §see: refactor to have specific logger for log? (fuction sending quote and logger?)
 
@@ -161,9 +158,9 @@ The quote will be prefixed by the current `omni-quotes-prompt'"
     ;; §maybe: si il y a quelquechose déjà afficher, simuler un mouvement pour que le idle revienne vite!
     (omni-quotes-display-random-quote)))
 
-(defun omni-quotes-cant-redisplay() ;§todo:refactor to conv
+(defun omni-quotes-cant-redisplay()
   "Function that enable or not Quote to be display. (in order to avoid erasing of important messages)"
-  ;; §maybe revert logic for clarity
+  ;; §maybe: revert logic for clarity
   (and (current-message)
        (let ((cm (current-message)))
          (not (or (get-text-property 0 'omni-quote-p cm)
@@ -176,7 +173,6 @@ The quote will be prefixed by the current `omni-quotes-prompt'"
   "Display random quotes when idle."
   :lighter omni-quotes-lighter
   :global t
-  ;; :group §todo:find-one?
   (progn
     (if omni-quotes-mode
         (omni-quotes-idle-display-start)

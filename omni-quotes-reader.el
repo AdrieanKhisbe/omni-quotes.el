@@ -27,8 +27,8 @@
 
 ;;; Code:
 
-;; §later: see existing format.
-;; §todo: use F
+;; §later: see existing format of quotes
+;; §todo: use f library
 ;; §todo: build tests!!!!
 
 ;;; ¤> Entry points.
@@ -70,7 +70,7 @@
       ;; (buffer-substring)
       (push (thing-at-point 'line) quotes)
       (forward-line))
-      ;; §later: filter lines: trims and so on. (use dash+s lib?)
+      ;; §later: filter lines: trims and so on. (use dash+s lib?) matching pattern
     quotes))
 
 

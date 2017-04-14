@@ -22,7 +22,7 @@
 
 ;;; Commentary:
 
-;;
+;; There are the timer code related of omni-quotes
 
 ;;; Code:
 
@@ -45,9 +45,8 @@ With NO-REPEAT idle display will happen once."
   (omni-quotes-cancel-and-set-new-timer nil))
 
 
-;; Helper Methods: [§maybe kill?]
-(defun omni-quotes-cancel-if-timer ()
-  ;; ¤note: no need to inline them with `defsubst'
+;; Helper Methods:
+(defsubst omni-quotes-cancel-if-timer ()
   "Cancel OmniQuote timer (`omni-quotes-idle-timer') if set."
   (when (timerp omni-quotes-idle-timer)
     (cancel-timer omni-quotes-idle-timer)))
