@@ -60,7 +60,7 @@
   :type 'string :group 'omni-quotes)
 ;; §maybe will become a separator?
 (defcustom omni-quotes-color-prompt-p t "Is The Omni-Quote \"prompt\" colored."
-  :type 'boolean :group 'omni-quotes) ; §later:face (also for the text)
+  :type 'boolean :group 'omni-quotes) ; §later: face (also for the text)
 
 (when omni-quotes-color-prompt-p
   (setq omni-quotes-prompt (propertize omni-quotes-prompt 'face 'font-lock-keyword-face)))
@@ -177,8 +177,8 @@ The quote will be prefixed by the current `omni-quotes-prompt'"
         (omni-quotes-idle-display-start)
       (omni-quotes-idle-display-stop))))
 
-;; §TMP!!!!
-(omni-quotes-ring-populate omni-quotes-default-quotes)
+;; §maybe: tmp?
+(omni-quotes-load-defaults)
 
 (provide 'omni-quotes)
 ;;; omni-quotes.el ends here
