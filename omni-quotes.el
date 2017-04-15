@@ -182,7 +182,7 @@ The quote will be prefixed by the current `omni-quotes-prompt'"
       (omni-quotes-idle-display-stop))))
 
 ;; §TMP!!!!
-(omni-quotes-ring-populate)
+(omni-quotes-ring-populate omni-quotes-default-quotes)
 
 (provide 'omni-quotes)
 ;;; omni-quotes.el ends here

@@ -29,25 +29,24 @@
 
 (require 'dash)
 
-;; §todo: (defvar current) -> structure stockant les sources courrant
 ;;; ¤>vars
-(defvar omni-quotes-ring-current-quotes (make-ring 42) ;§see:size
+(defvar omni-quotes-ring-current-quotes nil
   "Ring Storing the Different quotes.")
 
 (defvar omni-quotes-ring-current-pointer 0
   "Pointer to the current element of the quote ring.")
 
-(defun omni-quotes-ring-populate () ;§todo: make it call current population method
-  "Populate `omni-quotes-ring-current-quoteslist' with `omni-quotes-default-quotes'."
+(defun omni-quotes-ring-populate (quote-list) ;§todo: make it call current population method
+  "Populate `omni-quotes-ring-current-quoteslist' with QUOTE-LIST."
   ;; ¤warn:doc-update-with-function
   ;; §note: random population method. (maybe to instract in shuffle) [and optimize...]
   ;; that send a new list
 
-  ;; §maybe: empty ring?
+  (setq omni-quotes-ring-current-quotes (make-ring 42)) ;§see:size
   (let ((next-insert 0)
         (shuffled-list nil))
     ;; §todo: extract shuffle list
-    (-each omni-quotes-default-quotes
+    (-each quote-list
       (lambda (quote)
         (progn (setq shuffled-list (-insert-at next-insert quote shuffled-list)
                       next-insert (random (length shuffled-list))))))
@@ -58,7 +57,7 @@
 ;; §maybe:see cycle (send an infinte copy?)
 ;;§tmp; (omni-quotes-ring-populate)
 ;; (setq omni-quotes-ring-current-quoteslist nil)
-;; §TODO: extract a real structure in specific file. (access and modifying api)
+;; §TODO: extract a real structure in specific file. (access and modifying api)!!
 
 ;; §draft: force population ;§todo: extract in omni-quotes-ring. or data structure whatever
 ;; §ring- random or rotating. use a pointer rather than stupidly rotate the list....
@@ -81,7 +80,7 @@
 
   ;; §later: var saying method that should be call
   )
-;; ¤see berkeley: utilities.lisp!!!
+;; ¤see: berkeley: utilities.lisp!!!
 
 ;; §maybe:rename
 ;; §maybe: store as ring, use dash for filter, whatever?
