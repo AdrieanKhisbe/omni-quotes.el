@@ -141,8 +141,7 @@ The quote will be prefixed by the current `omni-quotes-prompt'"
 (defun omni-quotes-random-quote ()
   "Get a random quote."
   ;; §todo: use current-quote ring structure to create
-  (interactive)
-  (omni-quotes-ring-get))
+  (omni-quotes-ring-get omni-quotes-ring-current-quotes))
 ;; §maybe: should have different quote rings for the categories. how to select-active-regions
 ;; §HERE: TODO: IMP!!!! have real object. determine how they should look like. (also group of ring)
 ;; §maybe have current function: (round, random...)

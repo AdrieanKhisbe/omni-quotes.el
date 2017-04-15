@@ -32,29 +32,23 @@
 
 ;;; ¤>vars
 (defvar omni-quotes-ring-current-quotes nil
-  "Ring Storing the Different quotes.")
+  "Quote Ring Storing the Different quotes.")
 
-(defvar omni-quotes-ring-current-pointer 0
-  "Pointer to the current element of the quote ring.")
 
-(defun omni-quotes-ring-populate (quote-list) ;§todo: make it call current population method
+(defun omni-quotes-ring-populate (quote-list)
   "Populate `omni-quotes-ring-current-quoteslist' with QUOTE-LIST."
-  ;; ¤warn:doc-update-with-function
-  ;; §note: random population method. (maybe to instract in shuffle) [and optimize...]
-  ;; that send a new list
-
-  (setq omni-quotes-ring-current-quotes (make-ring 42)) ;§see:size
-  (-each (omni-quote--shuffle-list quote-list)
-    (lambda(quote)(ring-insert omni-quotes-ring-current-quotes quote))))
+  ;; ¤warn:doc-update-with-function §???
+  (let ((quote-ring (omni-quote-ring-maker quote-list)))
+    (setq omni-quotes-ring-current-quotes quote-ring)))
 
 (defun omni-quote-ring-maker (list)
-  (let ((ring (ht ("list" list)
-                  ("pointer" 0)
-                  ("ring" (make-ring (length list))))))
-
-
-
-    ))
+  "Make a Quote-ring out of the provided list"
+  (let ((ring (ht ('list list)
+                  ('pointer 0)
+                  ('ring (make-ring (length list))))))
+    (-each (omni-quote--shuffle-list list)
+      (lambda(quote)(ring-insert (ht-get ring 'ring) quote)))
+    ring))
 
 (defun omni-quote--shuffle-list (list)
   "Returns a shuffled version of the LIST."
@@ -72,21 +66,24 @@
 ;; §draft: force population ;§todo: extract in omni-quotes-ring. or data structure whatever
 ;; §ring- random or rotating. use a pointer rather than stupidly rotate the list....
 
-(defun omni-quotes-ring-next()
-  "Send next quote of the ring and move pointer."
-  (let ((quote (ring-ref omni-quotes-ring-current-quotes omni-quotes-ring-current-pointer))) ;§here TOTEST
-    (setq omni-quotes-ring-current-pointer (1+ omni-quotes-ring-current-pointer))
+(defun omni-quotes-ring-next (quote-ring)
+  "Send next quote of the QUOTE-RING and move pointer."
+  (let* ((ring (ht-get quote-ring 'ring))
+         (pointer (ht-get quote-ring 'pointer))
+         (quote (ring-ref ring pointer)))
+    (ht-set! quote-ring 'pointer (1+ pointer))
     quote))
 
-;;§later: prev
-(defun omni-quotes-ring-random ()
-  "Give a random quote from the ring."
-  ;;§here §TOTEST
-  (ring-ref omni-quotes-ring-current-quotes (random (ring-size omni-quotes-ring-current-quotes))))
+;; §later: prev
 
-(defun omni-quotes-ring-get ()
+(defun omni-quotes-ring-random (quote-ring)
+  "Give a random quote from the ring."
+  (let ((ring (ht-get quote-ring 'ring)))
+    (ring-ref ring (random (ring-size ring)))))
+
+(defun omni-quotes-ring-get (quote-ring)
   ;; §maybe: different accès method. Get method dispatch
-  (omni-quotes-ring-next)
+  (omni-quotes-ring-next quote-ring)
 
   ;; §later: var saying method that should be call
   )
