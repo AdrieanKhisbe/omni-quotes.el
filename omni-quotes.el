@@ -74,7 +74,7 @@
 
     ;; Tips
     "Harness Macro Powaaaa"
-    "Use a fuckying good register level" ; paye ton franglish
+    "Register registers as a good practice"
     "Might be to learn to make function from macros"
 
     "Use position register and jump everywhere in no time! :)"
@@ -82,7 +82,8 @@
     "Repeat command with C-x zzzzzzzzzzzzzzzzzzzzzz. (and don't fall asleep)"
 
     "Get some projectile and don't throw them away!"
-    "Ace and jump chars!" "Go to the Helm Gouffre!"
+    "Ace and jump chars!"
+    "Go to the Helm Gouffre!" ; ref to lord of rings
     "Don't be Evil (nor a God)"
     ) ; end-of default quotes
   "My stupid default (omni-)quotes."
