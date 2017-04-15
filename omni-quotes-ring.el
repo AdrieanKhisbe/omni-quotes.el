@@ -22,10 +22,7 @@
 
 ;;; Commentary:
 
-;; §DOING: extract a real structure in specific file. (access and modifying api)!!
-
 ;;; Code:
-
 
 (require 'dash)
 (require 'ht)
@@ -37,7 +34,6 @@
 
 (defun omni-quotes-ring-populate (quote-list)
   "Populate `omni-quotes-ring-current-quoteslist' with QUOTE-LIST."
-  ;; ¤warn:doc-update-with-function §???
   (let ((quote-ring (omni-quote-ring-maker quote-list)))
     (setq omni-quotes-ring-current-quotes quote-ring)))
 
@@ -61,11 +57,6 @@
                      next-insert (random (length shuffled-list))))))
     shuffled-list))
 
-
-
-;; §draft: force population ;§todo: extract in omni-quotes-ring. or data structure whatever
-;; §ring- random or rotating. use a pointer rather than stupidly rotate the list....
-
 (defun omni-quotes-ring-next (quote-ring)
   "Send next quote of the QUOTE-RING and move pointer."
   (let* ((ring (ht-get quote-ring 'ring))
@@ -88,10 +79,6 @@
   ;; §later: var saying method that should be call
   )
 ;; ¤see: berkeley: utilities.lisp!!!
-
-;; §maybe:rename
-;; §maybe: store as ring, use dash for filter, whatever?
-
 
 (provide 'omni-quotes-ring)
 ;;; omni-quotes-ring.el ends here

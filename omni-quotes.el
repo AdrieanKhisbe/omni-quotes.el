@@ -143,7 +143,6 @@ The quote will be prefixed by the current `omni-quotes-prompt'"
   ;; §todo: use current-quote ring structure to create
   (omni-quotes-ring-get omni-quotes-ring-current-quotes))
 ;; §maybe: should have different quote rings for the categories. how to select-active-regions
-;; §HERE: TODO: IMP!!!! have real object. determine how they should look like. (also group of ring)
 ;; §maybe have current function: (round, random...)
 ;; §maybe: create an intensive mode. quotes plus raprochées. éventuellement un slidding effect. sans interruption
 ;;        jusqu'à la prochaine touche
@@ -157,17 +156,15 @@ The quote will be prefixed by the current `omni-quotes-prompt'"
               (omni-quotes-cant-redisplay))
     ;; §todo: after to long idle time disable it (maybe use other timer, or number of iteration. (how to reset?))
     ;;        ptetre un nombre de répétitions dans le timer? (sinon mettre au point une heuristique)
-    ;; §maybe: si il y a quelquechose déjà afficher, simuler un mouvement pour que le idle revienne vite!
+
     (omni-quotes-display-random-quote)))
 
 (defun omni-quotes-cant-redisplay()
   "Function that enable or not Quote to be display. (in order to avoid erasing of important messages)"
-  ;; §maybe: revert logic for clarity
-  (and (current-message)
-       (let ((cm (current-message)))
+  (let ((cm (current-message)))
+    (and cm
          (not (or (get-text-property 0 'omni-quote-p cm)
                   ;; §todo: check if prompt not empty.
-                  ;; when s dep (s-starts-with-p omni-quotes-prompt (current-message) )
                   (string-match omni-quotes-boring-message-regexp cm))))))
 
 ;;;###autoload
