@@ -22,12 +22,13 @@
 
 ;;; Commentary:
 
-;;
+;; §DOING: extract a real structure in specific file. (access and modifying api)!!
 
 ;;; Code:
 
 
 (require 'dash)
+(require 'ht)
 
 ;;; ¤>vars
 (defvar omni-quotes-ring-current-quotes nil
@@ -43,21 +44,30 @@
   ;; that send a new list
 
   (setq omni-quotes-ring-current-quotes (make-ring 42)) ;§see:size
+  (-each (omni-quote--shuffle-list quote-list)
+    (lambda(quote)(ring-insert omni-quotes-ring-current-quotes quote))))
+
+(defun omni-quote-ring-maker (list)
+  (let ((ring (ht ("list" list)
+                  ("pointer" 0)
+                  ("ring" (make-ring (length list))))))
+
+
+
+    ))
+
+(defun omni-quote--shuffle-list (list)
+  "Returns a shuffled version of the LIST."
   (let ((next-insert 0)
         (shuffled-list nil))
     ;; §todo: extract shuffle list
-    (-each quote-list
-      (lambda (quote)
-        (progn (setq shuffled-list (-insert-at next-insert quote shuffled-list)
-                      next-insert (random (length shuffled-list))))))
-    (-each shuffled-list (lambda(quote)(ring-insert omni-quotes-ring-current-quotes quote)))))
+    (-each list
+      (lambda (el)
+        (progn (setq shuffled-list (-insert-at next-insert el shuffled-list)
+                     next-insert (random (length shuffled-list))))))
+    shuffled-list))
 
-;; ¤note:beware random 0 give all numbers!
-;; (omni-quotes-message "Update list"))
-;; §maybe:see cycle (send an infinte copy?)
-;;§tmp; (omni-quotes-ring-populate)
-;; (setq omni-quotes-ring-current-quoteslist nil)
-;; §TODO: extract a real structure in specific file. (access and modifying api)!!
+
 
 ;; §draft: force population ;§todo: extract in omni-quotes-ring. or data structure whatever
 ;; §ring- random or rotating. use a pointer rather than stupidly rotate the list....
