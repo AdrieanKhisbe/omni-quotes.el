@@ -35,6 +35,7 @@
 (defun omni-quotes-ring-populate (quote-list)
   "Populate `omni-quotes-ring-current-quoteslist' with QUOTE-LIST."
   (let ((quote-ring (omni-quote-ring-maker quote-list)))
+    ;; §todo: protect from nil
     (setq omni-quotes-ring-current-quotes quote-ring)))
 
 (defun omni-quote-ring-maker (list)

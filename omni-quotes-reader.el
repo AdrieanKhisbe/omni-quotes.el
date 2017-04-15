@@ -27,54 +27,34 @@
 
 ;;; Code:
 
+(require 'f)
+(require 'dash)
+
 ;; §later: see existing format of quotes
-;; §todo: use f library
 ;; §todo: build tests!!!!
 
 ;;; ¤> Entry points.
 (defun omni-quotes-load-simple-quote-file (file-name)
   ;; ¤doc!
   (interactive "f")
-  (omni-quotes-process-quote-file file-name 'omni-quotes-parser-a-quote-aline))
+  (let ((quotes (omni-quote-simple-parser file-name)))
+    (omni-quotes-ring-populate quotes)))
 
-;;; ¤> processing function
-
-;; ¤parser function should send back
-(defun omni-quotes-process-quote-file (file parser)
-  ;; ¤doc!
-  ;; §todo: type checking
-  (with-temp-buffer
-    (insert-file-contents file)
-    (goto-char (point-min))
-    (funcall parser))
-
-  ;; §see: what do send back: result. or stored already?
-  ;; §post processing. see what to do with this. create a specific ring, by example.
-
-;; §todo: see where should store this. what data structure? ¤HERE!!
-  )
-
+(defun omni-quotes-load-defaults ()
+  (interactive)
+  (omni-quotes-ring-populate omni-quotes-default-quotes))
 
 ;;; ¤> parsers
 
-;;; ¤>> simple file reader:
-;; format is a line a quote.
-;; ignore file w
-
-
-(defun omni-quotes-parser-a-quote-aline ()
-  ;; see comment traiter ligne par ligne?
-  ;; ou tuiliser regexp
-  (let ((quotes '()) )
-    (while (not (eobp))
-      ;; (buffer-substring)
-      (push (thing-at-point 'line) quotes)
-      (forward-line))
-      ;; §later: filter lines: trims and so on. (use dash+s lib?) matching pattern
-    quotes))
-
-
-;; ¤>> other
+(defun omni-quote-simple-parser (file-name)
+  "Returns a list of quote from a simple file"
+  (if (f-exists? file-name)
+      (let ((text (f-read-text file-name)))
+        (s-lines (s-trim text)))
+    ;; §todo: filter pattern
+    (progn
+      (message "Filename does not exists %s" file-name)
+      nil)))
 
 (provide 'omni-quotes-reader)
 ;;; omni-quotes-reader.el ends here
