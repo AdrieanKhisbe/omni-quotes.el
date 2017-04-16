@@ -28,20 +28,20 @@
 (require 'ht)
 
 ;;; ¤>vars
-(defvar omni-quotes-ring-current-quotes nil
-  "Quote Ring Storing the Different quotes.")
+(defvar omni-quotes-set-current-quotes nil
+  "Quote Sets Storing the Different quotes.")
 
-(defvar omni-quotes-rings (ht))
+(defvar omni-quotes-sets (ht))
 
-(defun omni-quotes-ring-populate (quote-list name)
-  "Populate `omni-quotes-ring-current-quoteslist' with QUOTE-LIST."
-  (let ((quote-ring (omni-quote-ring-maker quote-list name)))
+(defun omni-quotes-set-populate (quote-list name)
+  "Populate `omni-quotes-set-current-quoteslist' with QUOTE-LIST."
+  (let ((quote-ring (omni-quote-set-maker quote-list name)))
     ;; §todo: protect from nil
-    (ht-set! omni-quotes-rings name quote-ring)
-    (setq omni-quotes-ring-current-quotes quote-ring)))
+    (ht-set! omni-quotes-sets name quote-ring)
+    (setq omni-quotes-set-current-quotes quote-ring)))
 
-(defun omni-quote-ring-maker (list name)
-  "Make a Quote-ring out of the provided LIST."
+(defun omni-quote-set-maker (list name)
+  "Make a Quote-Set out of the provided LIST."
   (let ((ring (ht ('list list)
                   ('name name)
                   ('pointer 0)
@@ -60,25 +60,25 @@
                      next-insert (random (length shuffled-list))))))
     shuffled-list))
 
-(defun omni-quotes-ring-next (quote-ring)
-  "Send next quote of the QUOTE-RING and move pointer."
-  (let* ((ring (ht-get quote-ring 'ring))
-         (pointer (ht-get quote-ring 'pointer))
+(defun omni-quotes-set-next (quote-set)
+  "Send next quote of the QUOTE-SET and move pointer."
+  (let* ((ring (ht-get quote-set 'ring))
+         (pointer (ht-get quote-set 'pointer))
          (quote (ring-ref ring pointer)))
-    (ht-set! quote-ring 'pointer (1+ pointer))
+    (ht-set! quote-set 'pointer (1+ pointer))
     quote))
 
 ;; §later: prev
 
-(defun omni-quotes-ring-random (quote-ring)
-  "Give a random quote from the QUOTE-RING."
-  (let ((ring (ht-get quote-ring 'ring)))
+(defun omni-quotes-set-random (quote-set)
+  "Give a random quote from the QUOTE-SET."
+  (let ((ring (ht-get quote-set 'ring)))
     (ring-ref ring (random (ring-size ring)))))
 
-(defun omni-quotes-ring-get (quote-ring)
-  "Get a quote from the given QUOTE-RING."
+(defun omni-quotes-set-get (quote-set)
+  "Get a quote from the given QUOTE-SET."
   ;; §maybe: different accès method. Get method dispatch
-  (omni-quotes-ring-next quote-ring)
+  (omni-quotes-set-next quote-set)
 
   ;; §later: var saying method that should be call
   )
