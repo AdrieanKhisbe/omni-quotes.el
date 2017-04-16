@@ -140,8 +140,7 @@ The quote will be prefixed by the current `omni-quotes-prompt'"
 
 (defun omni-quotes-random-quote ()
   "Get a random quote."
-  ;; §todo: use current-quote ring structure to create
-  (omni-quotes-set-get omni-quotes-set-current-quotes))
+  (omni-quotes-set-get omni-quotes-current-set))
 ;; §maybe: should have different quote rings for the categories. how to select-active-regions
 ;; §maybe have current function: (round, random...)
 ;; §maybe: create an intensive mode. quotes plus raprochées. éventuellement un slidding effect. sans interruption

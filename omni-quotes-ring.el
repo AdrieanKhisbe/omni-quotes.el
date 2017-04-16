@@ -28,17 +28,26 @@
 (require 'ht)
 
 ;;; ¤>vars
-(defvar omni-quotes-set-current-quotes nil
+(defvar omni-quotes-current-set nil
   "Quote Sets Storing the Different quotes.")
 
-(defvar omni-quotes-sets (ht))
+(defvar omni-quotes-sets (ht)
+  "Hashtable of the quote sets.")
+
+(defvar omni-quotes-sets-ring (make-ring 42)
+  "Ring of the used quote sets.")
+
+(defvar omni-quotes-sets-ring-pointer 0
+  "Pointer on the `omni-quote-sets-ring'")
 
 (defun omni-quotes-set-populate (quote-list name)
-  "Populate `omni-quotes-set-current-quoteslist' with QUOTE-LIST."
-  (let ((quote-ring (omni-quote-set-maker quote-list name)))
+  "Populate `omni-quotes-current-set' with a quote set made out of
+the provided QUOTE-LIST and NAME."
+  (let ((quote-set (omni-quote-set-maker quote-list name)))
     ;; §todo: protect from nil
-    (ht-set! omni-quotes-sets name quote-ring)
-    (setq omni-quotes-set-current-quotes quote-ring)))
+    (ht-set! omni-quotes-sets name quote-set)
+    (ring-insert omni-quotes-sets-ring quote-set)
+    (setq omni-quotes-current-set quote-set)))
 
 (defun omni-quote-set-maker (list name)
   "Make a Quote-Set out of the provided LIST."
@@ -83,6 +92,20 @@
   ;; §later: var saying method that should be call
   )
 ;; ¤see: berkeley: utilities.lisp!!!
+
+(defun omni-quotes-next-set ()
+  "Shift the `omni-quotes-current-set' forward."
+  (interactive) ; §todo: universal arg.
+  (let ((new-pointer (1+ omni-quotes-sets-ring-pointer)))
+    (setq omni-quotes-sets-ring-pointer new-pointer
+          omni-quotes-current-set (ring-ref omni-quotes-sets-ring new-pointer))))
+
+(defun omni-quotes-prev-set ()
+  "Shift the `omni-quotes-current-set' backward."
+  (interactive)
+  (let ((new-pointer (1- omni-quotes-sets-ring-pointer)))
+    (setq omni-quotes-sets-ring-pointer new-pointer
+          omni-quotes-current-set (ring-ref omni-quotes-sets-ring new-pointer))))
 
 (provide 'omni-quotes-ring)
 ;;; omni-quotes-ring.el ends here
