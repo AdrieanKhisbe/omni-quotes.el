@@ -44,3 +44,15 @@
             (omni-quotes-cant-redisplay => nil)
             (omni-quotes-display-random-quote => "called"))
            (should (equal (omni-quotes-idle-display-callback) "called"))))
+
+;;; ¤> Quote ring
+
+(ert-deftest omni-quotes-next-set-ok ()
+  (let ((pointer omni-quotes-sets-ring-pointer))
+    (omni-quotes-next-set)
+    (should (equal (1+ pointer) omni-quotes-sets-ring-pointer))))
+
+(ert-deftest omni-quotes-prev-set-ok ()
+  (let ((pointer omni-quotes-sets-ring-pointer))
+    (omni-quotes-prev-set)
+    (should (equal (1- pointer) omni-quotes-sets-ring-pointer))))
