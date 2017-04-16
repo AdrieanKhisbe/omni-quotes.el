@@ -18,16 +18,31 @@ Whether it's funny stuff, inspirational quotes, or something you try to remember
 
 Just turn on =omni-quotes-mode=, and quotes will appear when you are idle enough.
 
-So far system to enable you to load quotes from files, or other sources has not being complete yet.
+You can load a quote file with the command =omni-quotes-load-simple-quote-file= and
+reload default quotes with =omni-quotes-load-defaults=.
+A quote file is just a basic text file with one quote per line.
 
-It's on the way, and the appropriate documentation will then appear around here :)
+* Configuration
+A set of custom is present to customize behavior and appearance of omniquotes.
+You can access it through =customize-group 'omni-quotes= where you'll see the list of the customs.
+
+Here are the main ones:
+
+- =omni-quotes-default-quotes= :: List of default quotes
+- =omni-quotes-boring-message-patterns= :: List of message that ca be overwritten by an omni-quote
+- =omni-quotes-idle-interval= :: Idle time afterwhich omni-quote start to display quotes
+- =omni-quotes-repeat-interval= :: Time interval between two quotes
+- =omni-quotes-prompt= :: Leading prompt of quotes messages
+- =omni-quotes-lighter= :: OmniQuote lighter (name in modeline).
+
 
 * Installation
-Put it on the path and load it, or wait the melpa recipe to it the ground!
-So that it takes care of the =omni-log= dependency.
+You can install it from melpa, with =(package-install 'omni-quotes)=
+
 
 * Notes
 
 This is an inbuilding package, hence that huge number of building comments accross the code.
 (usage of =omni-tags= is recommended :D).
+
 *If you have any remark, refactor suggestion or else, just pose an issue ;)*

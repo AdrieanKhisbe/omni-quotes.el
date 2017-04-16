@@ -56,7 +56,7 @@
   :type 'number :group 'omni-quotes)
 (defcustom omni-quotes-repeat-interval 20 "OmniQuote repeat time, in seconds."
   :type 'number :group 'omni-quotes)
-(defcustom omni-quotes-prompt " » " "Leading prompt of messages OmniQuotes messages."
+(defcustom omni-quotes-prompt " » " "Leading prompt of OmniQuotes messages."
   :type 'string :group 'omni-quotes)
 ;; §maybe will become a separator?
 (defcustom omni-quotes-color-prompt-p t "Is The Omni-Quote \"prompt\" colored."
