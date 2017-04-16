@@ -51,7 +51,6 @@
   "Returns a shuffled version of the LIST."
   (let ((next-insert 0)
         (shuffled-list nil))
-    ;; §todo: extract shuffle list
     (-each list
       (lambda (el)
         (progn (setq shuffled-list (-insert-at next-insert el shuffled-list)
@@ -69,7 +68,7 @@
 ;; §later: prev
 
 (defun omni-quotes-ring-random (quote-ring)
-  "Give a random quote from the ring."
+  "Give a random quote from the QUOTE-RING."
   (let ((ring (ht-get quote-ring 'ring)))
     (ring-ref ring (random (ring-size ring)))))
 

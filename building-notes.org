@@ -1,6 +1,6 @@
 Diverse [Personal] Building Notes for omni-tags
 
-* Refactors
+* DONE Refactors
 ** Dispatch in diverse file.
 - Timer related.
 - Quotes datastuctures.
