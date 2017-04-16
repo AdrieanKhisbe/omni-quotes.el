@@ -12,4 +12,5 @@
  (depends-on "ert-runner")
  (depends-on "el-mock")
  (depends-on "cask-package-toolset")
- (depends-on "undercover"))
+ (depends-on "undercover")
+ (depends-on "shut-up"))

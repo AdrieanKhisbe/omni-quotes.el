@@ -15,6 +15,7 @@
 (undercover "*.el" "omni-quotes/*.el"
             (:exclude "*-test.el")
             (:report-file "/tmp/undercover-report.json"))
+(require 'shut-up)
 (require 'omni-quotes)
 (require 'espuds)
 (require 'ert)
