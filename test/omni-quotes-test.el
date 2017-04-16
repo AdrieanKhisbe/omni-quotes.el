@@ -8,11 +8,11 @@
            (omni-quotes-load-simple-quote-file (f-expand "quote-file.txt" omni-quotes-test-path) "quote-file")))
 
 (ert-deftest can-parse-simple-file-ok ()
-  (should (equal (omni-quote-simple-parser (f-expand "quote-file.txt" omni-quotes-test-path))
+  (should (equal (omni-quotes-simple-parser (f-expand "quote-file.txt" omni-quotes-test-path))
                  '("a" "b" "c" "alpha" "beta"))))
 
 (ert-deftest can-parse-simple-file-ko ()
-  (should-not (shut-up (omni-quote-simple-parser (f-expand "NOT-A-quote-file.txt" omni-quotes-test-path)))))
+  (should-not (shut-up (omni-quotes-simple-parser (f-expand "NOT-A-quote-file.txt" omni-quotes-test-path)))))
 
 
 ;;; ¤> quotes display

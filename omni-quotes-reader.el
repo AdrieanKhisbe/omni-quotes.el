@@ -36,7 +36,7 @@
 (defun omni-quotes-load-simple-quote-file (file-name name)
   "Loads quotes from given FILE-NAME as current quote-ring"
   (interactive "fQuote File: \nsQuoteSet name: ")
-  (let ((quotes-list (omni-quote-simple-parser file-name)))
+  (let ((quotes-list (omni-quotes-simple-parser file-name)))
     (omni-quotes-set-populate quotes-list name)))
 
 (defun omni-quotes-load-defaults ()
@@ -45,7 +45,7 @@
   (omni-quotes-set-populate omni-quotes-default-quotes "default"))
 
 ;;; ¤> parsers
-(defun omni-quote-simple-parser (file-name)
+(defun omni-quotes-simple-parser (file-name)
   "Returns a list of quote from a simple FILE-NAME."
   (if (f-exists? file-name)
       (let ((text (f-read-text file-name)))

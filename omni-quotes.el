@@ -127,6 +127,7 @@ Constructed from `omni-quotes-boring-message-patterns'.")
     tmplog)
   "Specific logger for omni-quotes.")
 
+;;;###autoload
 (defun omni-quotes-display-random-quote ()
   "Display a random quote obtained from `omni-quotes-random-quote'.
 The quote will be prefixed by the current `omni-quotes-prompt'"
