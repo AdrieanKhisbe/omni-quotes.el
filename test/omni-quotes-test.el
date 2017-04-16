@@ -3,6 +3,10 @@
 
 ;;; ¤> parsers
 
+(ert-deftest load-simple-quote-file ()
+  (mocklet (((omni-quotes-set-populate '("a" "b" "c" "alpha" "beta") "quote-file")))
+           (omni-quotes-load-simple-quote-file (f-expand "quote-file.txt" omni-quotes-test-path) "quote-file")))
+
 (ert-deftest can-parse-simple-file-ok ()
   (should (equal (omni-quote-simple-parser (f-expand "quote-file.txt" omni-quotes-test-path))
                  '("a" "b" "c" "alpha" "beta"))))
