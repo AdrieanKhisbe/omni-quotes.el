@@ -9,3 +9,38 @@
 
 (ert-deftest can-parse-simple-file-ko ()
   (should-not (shut-up (omni-quote-simple-parser (f-expand "NOT-A-quote-file.txt" omni-quotes-test-path)))))
+
+
+;;; ¤> quotes display
+
+(ert-deftest omni-quotes-cant-redisplay-no-message ()
+  (with-mock
+   (stub current-message => nil)
+   (should-not (omni-quotes-cant-redisplay))))
+
+(ert-deftest omni-quotes-cant-redisplay-boring-message ()
+  (with-mock
+   (stub current-message => "Mark set")
+   (should-not (omni-quotes-cant-redisplay))))
+
+(ert-deftest omni-quotes-cant-redisplay-important-message ()
+  (with-mock
+   (stub current-message => "Important Message")
+   (should (omni-quotes-cant-redisplay))))
+
+(ert-deftest omni-quote-idle-redisplay-active-minibuffer()
+  (mocklet ((active-minibuffer-window => t)
+            (omni-quotes-display-random-quote not-called))
+           (omni-quotes-idle-display-callback)))
+
+(ert-deftest omni-quote-idle-redisplay-cant()
+  (mocklet ((active-minibuffer-window => nil)
+            (omni-quotes-cant-redisplay => t)
+            (omni-quotes-display-random-quote not-called))
+           (omni-quotes-idle-display-callback)))
+
+(ert-deftest omni-quote-idle-redisplay-cant()
+  (mocklet ((active-minibuffer-window => nil)
+            (omni-quotes-cant-redisplay => nil)
+            (omni-quotes-display-random-quote => "called"))
+           (should (equal (omni-quotes-idle-display-callback) "called"))))

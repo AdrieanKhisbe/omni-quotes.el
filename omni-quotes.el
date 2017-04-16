@@ -151,8 +151,8 @@ The quote will be prefixed by the current `omni-quotes-prompt'"
 (defun omni-quotes-idle-display-callback () ; §maybe rename of move in timer?
   "OmniQuote Timer callback function."
   ;; §maybe: force? optional argument? §maybe: extract in other function
-  ;; ¤note: check if there is no prompt waiting!!
-  (unless (or (active-minibuffer-window)
+
+  (unless (or (active-minibuffer-window) ; check if there is no prompt waiting
               (omni-quotes-cant-redisplay))
     ;; §todo: after to long idle time disable it (maybe use other timer, or number of iteration. (how to reset?))
     ;;        ptetre un nombre de répétitions dans le timer? (sinon mettre au point une heuristique)

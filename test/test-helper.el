@@ -18,10 +18,13 @@
             (:exclude "*-test.el")
             (:send-report nil)
             (:report-file "/tmp/undercover-report.json"))
+
+
 (require 'ert)
 (require 's)
 (require 'dash)
 (require 'shut-up)
+(require 'el-mock)
 (require 'omni-log)
 (require 'omni-quotes-ring (f-expand "omni-quotes-ring" omni-quotes-root-path))
 (require 'omni-quotes-timer (f-expand "omni-quotes-timer" omni-quotes-root-path))
