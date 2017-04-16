@@ -31,16 +31,19 @@
 (defvar omni-quotes-ring-current-quotes nil
   "Quote Ring Storing the Different quotes.")
 
+(defvar omni-quotes-rings (ht))
 
-(defun omni-quotes-ring-populate (quote-list)
+(defun omni-quotes-ring-populate (quote-list name)
   "Populate `omni-quotes-ring-current-quoteslist' with QUOTE-LIST."
-  (let ((quote-ring (omni-quote-ring-maker quote-list)))
+  (let ((quote-ring (omni-quote-ring-maker quote-list name)))
     ;; §todo: protect from nil
+    (ht-set! omni-quotes-rings name quote-ring)
     (setq omni-quotes-ring-current-quotes quote-ring)))
 
-(defun omni-quote-ring-maker (list)
+(defun omni-quote-ring-maker (list name)
   "Make a Quote-ring out of the provided LIST."
   (let ((ring (ht ('list list)
+                  ('name name)
                   ('pointer 0)
                   ('ring (make-ring (length list))))))
     (-each (omni-quote--shuffle-list list)

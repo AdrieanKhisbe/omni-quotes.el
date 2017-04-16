@@ -33,16 +33,16 @@
 ;; §later: see existing format of quotes
 
 ;;; ¤> Entry points.
-(defun omni-quotes-load-simple-quote-file (file-name)
+(defun omni-quotes-load-simple-quote-file (file-name name)
   "Loads quotes from given FILE-NAME as current quote-ring"
-  (interactive "f")
-  (let ((quotes (omni-quote-simple-parser file-name)))
-    (omni-quotes-ring-populate quotes)))
+  (interactive "fQuote File: \nsQuoteRing name: ")
+  (let ((quotes-list (omni-quote-simple-parser file-name)))
+    (omni-quotes-ring-populate quotes-list name)))
 
 (defun omni-quotes-load-defaults ()
   "Loads the defaults quote as current quote-ring."
   (interactive)
-  (omni-quotes-ring-populate omni-quotes-default-quotes))
+  (omni-quotes-ring-populate omni-quotes-default-quotes "default"))
 
 ;;; ¤> parsers
 (defun omni-quote-simple-parser (file-name)
