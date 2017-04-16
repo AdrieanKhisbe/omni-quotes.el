@@ -22,6 +22,23 @@ You can load a quote file with the command =omni-quotes-load-simple-quote-file= 
 reload default quotes with =omni-quotes-load-defaults=.
 A quote file is just a basic text file with one quote per line.
 
+When you have multiple quote-set it's possible to cycle through them with the commands
+=omni-quotes-next-set= and =omni-quotes-prev-set=
+
+
+* Installation
+You can install it from melpa, with =(package-install 'omni-quotes)=
+
+If you use [[https://github.com/jwiegley/use-package][use-package]] you could use the following config
+#+begin_src emacs-lisp
+  (use-package omni-quotes
+    :bind (("M-s q m" . omni-quotes-mode)
+           ("M-s q p" . omni-quotes-prev-set)
+           ("M-s q n" . omni-quotes-next-set)
+           ("M-s q q" . omni-quotes-display-random-quote))
+    :config (omni-quotes-load-simple-quote-file "~/.my-quote" "personal"))
+#+end_src
+
 * Configuration
 A set of custom is present to customize behavior and appearance of omniquotes.
 You can access it through =customize-group 'omni-quotes= where you'll see the list of the customs.
@@ -35,9 +52,6 @@ Here are the main ones:
 - =omni-quotes-prompt= :: Leading prompt of quotes messages
 - =omni-quotes-lighter= :: OmniQuote lighter (name in modeline).
 
-
-* Installation
-You can install it from melpa, with =(package-install 'omni-quotes)=
 
 
 * Notes
