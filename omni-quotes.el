@@ -3,8 +3,8 @@
 ;; Copyright (C) 2014-2017 Adrien Becchis
 ;;
 ;; Author: Adrien Becchis <adriean.khisbe@live.fr>
-;; Created:  2014-07-17
-;; Version: 0.2
+;; Created: 2014-07-17
+;; Version: 0.3.0
 ;; Keywords: convenience
 ;; Package-Requires: ((dash "2.8") (omni-log "0.1.2") (f "0.19.0") (s "1.11.0") (ht "2.1"))
 ;; Url: https://github.com/AdrieanKhisbe/omni-quotes.el
