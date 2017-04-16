@@ -39,7 +39,7 @@
     (setq omni-quotes-ring-current-quotes quote-ring)))
 
 (defun omni-quote-ring-maker (list)
-  "Make a Quote-ring out of the provided list"
+  "Make a Quote-ring out of the provided LIST."
   (let ((ring (ht ('list list)
                   ('pointer 0)
                   ('ring (make-ring (length list))))))
@@ -73,6 +73,7 @@
     (ring-ref ring (random (ring-size ring)))))
 
 (defun omni-quotes-ring-get (quote-ring)
+  "Get a quote from the given QUOTE-RING."
   ;; §maybe: different accès method. Get method dispatch
   (omni-quotes-ring-next quote-ring)
 

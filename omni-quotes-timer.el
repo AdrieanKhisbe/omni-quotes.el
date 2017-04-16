@@ -44,8 +44,7 @@ With NO-REPEAT idle display will happen once."
   (interactive)
   (omni-quotes-cancel-and-set-new-timer nil))
 
-
-;; Helper Methods:
+;; ¤> Helper Methods:
 (defsubst omni-quotes-cancel-if-timer ()
   "Cancel OmniQuote timer (`omni-quotes-idle-timer') if set."
   (when (timerp omni-quotes-idle-timer)

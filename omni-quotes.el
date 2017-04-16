@@ -86,11 +86,11 @@
     "Go to the Helm Gouffre!" ; ref to lord of rings
     "Don't be Evil (nor a God)"
     ) ; end-of default quotes
-  "My stupid default (omni-)quotes."
+  "Some stupid default (omni-)quotes."
   :type '(repeat string) :group 'omni-quotes)
 
-;; §later:custom: quotes sources
-;; §later:custom whitelist messages to bypass!!
+;; §later: custom: quotes sources
+;; §later: custom whitelist messages to bypass!!
 
 ;; §later: use category. (revision, stupid quote, emacs tips, emacs binding to learn...)
 ;;         category based on context (ex langage specific tips)
@@ -160,7 +160,7 @@ The quote will be prefixed by the current `omni-quotes-prompt'"
     (omni-quotes-display-random-quote)))
 
 (defun omni-quotes-cant-redisplay()
-  "Function that enable or not Quote to be display. (in order to avoid erasing of important messages)"
+  "Tells if Quote should be display. (in order to avoid erasing of important messages)"
   (let ((cm (current-message)))
     (and cm
          (not (or (get-text-property 0 'omni-quote-p cm)

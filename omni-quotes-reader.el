@@ -31,23 +31,22 @@
 (require 'dash)
 
 ;; §later: see existing format of quotes
-;; §todo: build tests!!!!
 
 ;;; ¤> Entry points.
 (defun omni-quotes-load-simple-quote-file (file-name)
-  ;; ¤doc!
+  "Loads quotes from given FILE-NAME as current quote-ring"
   (interactive "f")
   (let ((quotes (omni-quote-simple-parser file-name)))
     (omni-quotes-ring-populate quotes)))
 
 (defun omni-quotes-load-defaults ()
+  "Loads the defaults quote as current quote-ring."
   (interactive)
   (omni-quotes-ring-populate omni-quotes-default-quotes))
 
 ;;; ¤> parsers
-
 (defun omni-quote-simple-parser (file-name)
-  "Returns a list of quote from a simple file"
+  "Returns a list of quote from a simple FILE-NAME."
   (if (f-exists? file-name)
       (let ((text (f-read-text file-name)))
         (s-lines (s-trim text)))
