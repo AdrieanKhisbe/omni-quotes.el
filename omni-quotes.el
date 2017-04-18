@@ -58,7 +58,19 @@
 (defcustom omni-quotes-color-prompt-p t "Is The Omni-Quote \"prompt\" colored."
   :type 'boolean :group 'omni-quotes) ; §later: face (also for the text)
 
-(when omni-quotes-color-prompt-p
+(defcustom omni-quotes-fading nil
+  "Does omni-quote fade after some duration."
+  :type 'boolean :group 'omni-quotes)
+
+(defcustom omni-quotes-fading-delay 14
+  "Delay after which quote will fade away."
+  :type 'number :group 'omni-quotes)
+
+(defcustom omni-quotes-fading-duration 4
+  "Duration of the fade away effect."
+  :type 'number :group 'omni-quotes)
+
+(when omni-quotes-color-prompt-p ;; §maybe: probably to kill
   (setq omni-quotes-prompt (propertize omni-quotes-prompt 'face 'font-lock-keyword-face)))
 (setq omni-quotes-prompt (propertize omni-quotes-prompt 'omni-quote-p t))
 
@@ -117,7 +129,12 @@
   "Regexp used to match messages that can be overwriten by a quote.
 Constructed from `omni-quotes-boring-message-patterns'.")
 
-(defconst omni-quotes-global-quote-log (omni-log-create "omni-quotes")
+(defconst omni-quotes-global-quote-log
+  (omni-log-create "omni-quotes"
+                   `((prompt . ,omni-quotes-prompt)
+                     (fading . ,omni-quotes-fading)
+                     (fading-delay . ,omni-quotes-fading-delay)
+                     (fading-duration . ,omni-quotes-fading-duration)))
       "Specific logger for omni-quotes.")
 
 ;;;###autoload
@@ -126,7 +143,7 @@ Constructed from `omni-quotes-boring-message-patterns'.")
 The quote will be prefixed by the current `omni-quotes-prompt'"
   ;; §maybe: alias in global name space du genre `omni-quotes-random-display'
   (interactive)
-  (log-omni-quotes (format "%s%s" omni-quotes-prompt (omni-quotes-random-quote))))
+  (log-omni-quotes (omni-quotes-random-quote)))
 ;; §maybe: [append with date?]
 ;; §later: add fading/sliding ->>? rather omni-log level feature
 ;; §maybe: change format: catégorie > texte.
