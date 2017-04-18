@@ -1,5 +1,5 @@
 (source gnu)
-(source melpa)
+(source melpa-stable)
 
 (package-file "omni-quotes.el")
 
@@ -13,4 +13,5 @@
  (depends-on "el-mock")
  (depends-on "cask-package-toolset")
  (depends-on "undercover")
+ (depends-on "use-package")
  (depends-on "shut-up"))
