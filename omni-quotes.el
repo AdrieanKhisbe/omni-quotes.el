@@ -52,9 +52,15 @@
   :type 'number :group 'omni-quotes)
 (defcustom omni-quotes-repeat-interval 20 "OmniQuote repeat time, in seconds."
   :type 'number :group 'omni-quotes)
+
 (defcustom omni-quotes-prompt " » " "Leading prompt of OmniQuotes messages."
-  :type 'string :group 'omni-quotes)
+  :type 'string :group 'omni-quotes
+  :set (lambda (symb value)
+         (if (boundp 'omni-quotes-global-quote-log)
+             (omni-log-logger-set-property omni-quotes-global-quote-log 'prompt value))
+         (set-default symb value)))
 ;; §maybe will become a separator?
+
 (defcustom omni-quotes-color-prompt-p t "Is The Omni-Quote \"prompt\" colored."
   :type 'boolean :group 'omni-quotes) ; §later: face (also for the text)
 
@@ -68,11 +74,19 @@
 
 (defcustom omni-quotes-fading-delay 14
   "Delay after which quote will fade away."
-  :type 'number :group 'omni-quotes)
+  :type 'number :group 'omni-quotes
+  :set (lambda (symb value)
+         (if (boundp 'omni-quotes-global-quote-log)
+             (omni-log-logger-set-property omni-quotes-global-quote-log 'fading-delay value))
+         (set-default symb value)))
 
 (defcustom omni-quotes-fading-duration 4
   "Duration of the fade away effect."
-  :type 'number :group 'omni-quotes)
+  :type 'number :group 'omni-quotes
+  :set (lambda (symb value)
+         (if (boundp 'omni-quotes-global-quote-log)
+             (omni-log-logger-set-property omni-quotes-global-quote-log 'fading-duration value))
+         (set-default symb value)))
 
 (when omni-quotes-color-prompt-p ;; §maybe: probably to kill
   (setq omni-quotes-prompt (propertize omni-quotes-prompt 'face 'font-lock-keyword-face)))
