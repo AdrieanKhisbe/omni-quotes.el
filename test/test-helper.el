@@ -21,6 +21,7 @@
 
 
 (require 'ert)
+(require 'cl)
 (require 's)
 (require 'dash)
 (require 'shut-up)
