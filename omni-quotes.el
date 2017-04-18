@@ -117,11 +117,8 @@
   "Regexp used to match messages that can be overwriten by a quote.
 Constructed from `omni-quotes-boring-message-patterns'.")
 
-(defconst omni-quotes-global-quote-log
-  (let ((tmplog (omni-log-create-logger "omni-quotes")))
-    (omni-log-create-log-function tmplog)
-    tmplog)
-  "Specific logger for omni-quotes.")
+(defconst omni-quotes-global-quote-log (omni-log-create "omni-quotes")
+      "Specific logger for omni-quotes.")
 
 ;;;###autoload
 (defun omni-quotes-display-random-quote ()
