@@ -23,7 +23,7 @@ reload default quotes with =omni-quotes-load-defaults=.
 A quote file is just a basic text file with one quote per line.
 
 When you have multiple quote-set it's possible to cycle through them with the commands
-=omni-quotes-next-set= and =omni-quotes-prev-set=
+=omni-quotes-next-set= and =omni-quotes-prev-set=.
 
 
 * Installation
@@ -46,13 +46,16 @@ You can access it through =customize-group 'omni-quotes= where you'll see the li
 Here are the main ones:
 
 - =omni-quotes-default-quotes= :: List of default quotes
-- =omni-quotes-boring-message-patterns= :: List of message that ca be overwritten by an omni-quote
-- =omni-quotes-idle-interval= :: Idle time afterwhich omni-quote start to display quotes
-- =omni-quotes-repeat-interval= :: Time interval between two quotes
 - =omni-quotes-prompt= :: Leading prompt of quotes messages
+- =omni-quotes-idle-interval= :: Idle time after which omni-quote start to display quotes
+- =omni-quotes-fading= :: Does the quote fade after some time
+- =omni-quotes-fading-delay= :: Delay before the fading effect
+- =omni-quotes-fading-duration= :: Time it takes for the quote to fade away
+- =omni-quotes-repeat-interval= :: Time interval between two quotes
+- =omni-quotes-boring-message-patterns= :: List of message that ca be overwritten by an omni-quote
 - =omni-quotes-lighter= :: OmniQuote lighter (name in modeline).
 
-
+If you want to customize them programaticaly in your config you must use the =customize-set-variable= construct, eg: =(customize-set-variable 'omni-quotes-fading t)=
 
 * Notes
 
