@@ -60,7 +60,11 @@
 
 (defcustom omni-quotes-fading nil
   "Does omni-quote fade after some duration."
-  :type 'boolean :group 'omni-quotes)
+  :type 'boolean :group 'omni-quotes
+  :set (lambda (symb value)
+         (if (boundp 'omni-quotes-global-quote-log)
+             (omni-log-logger-set-property omni-quotes-global-quote-log 'fading value))
+         (set-default symb value)))
 
 (defcustom omni-quotes-fading-delay 14
   "Delay after which quote will fade away."
