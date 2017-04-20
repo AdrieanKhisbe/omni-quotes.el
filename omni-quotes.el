@@ -6,7 +6,7 @@
 ;; Created: 2014-07-17
 ;; Version: 0.4.1
 ;; Keywords: convenience
-;; Package-Requires: ((dash "2.8") (omni-log "0.3.1") (f "0.19.0") (s "1.11.0") (ht "2.1"))
+;; Package-Requires: ((dash "2.8") (omni-log "0.3.3") (f "0.19.0") (s "1.11.0") (ht "2.1"))
 ;; Url: https://github.com/AdrieanKhisbe/omni-quotes.el
 
 
@@ -86,6 +86,14 @@
   :set (lambda (symb value)
          (if (boundp 'omni-quotes-global-quote-log)
              (omni-log-logger-set-property omni-quotes-global-quote-log 'fading-duration value))
+         (set-default symb value)))
+
+(defcustom omni-quotes-centered nil
+  "Does omni-quote fade after some duration."
+  :type 'boolean :group 'omni-quotes
+  :set (lambda (symb value)
+         (if (boundp 'omni-quotes-global-quote-log)
+             (omni-log-logger-set-property omni-quotes-global-quote-log 'centered value))
          (set-default symb value)))
 
 (when omni-quotes-color-prompt-p ;; §maybe: probably to kill
