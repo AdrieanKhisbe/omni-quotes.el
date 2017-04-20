@@ -1,4 +1,4 @@
-;;; omni-quotes.el --- Random quotes displayer
+;;; omni-quotes.el --- Random quotes displayer   -*- lexical-binding: t -*-
 ;;
 ;; Copyright (C) 2014-2017 Adrien Becchis
 ;;
@@ -53,12 +53,16 @@
 (defcustom omni-quotes-repeat-interval 20 "OmniQuote repeat time, in seconds."
   :type 'number :group 'omni-quotes)
 
+(defun omni-quotes--log-settter (property)
+  "Return function handling forwarding PROPERTY update to logger."
+  (lambda (symb value)
+    (if (boundp 'omni-quotes-global-quote-log)
+        (omni-log-logger-set-property omni-quotes-global-quote-log property value))
+    (set-default symb value)))
+
 (defcustom omni-quotes-prompt " » " "Leading prompt of OmniQuotes messages."
   :type 'string :group 'omni-quotes
-  :set (lambda (symb value)
-         (if (boundp 'omni-quotes-global-quote-log)
-             (omni-log-logger-set-property omni-quotes-global-quote-log 'prompt value))
-         (set-default symb value)))
+  :set (omni-quotes--log-setter 'prompt))
 ;; §maybe will become a separator?
 
 (defcustom omni-quotes-color-prompt-p t "Is The Omni-Quote \"prompt\" colored."
@@ -67,34 +71,22 @@
 (defcustom omni-quotes-fading nil
   "Does omni-quote fade after some duration."
   :type 'boolean :group 'omni-quotes
-  :set (lambda (symb value)
-         (if (boundp 'omni-quotes-global-quote-log)
-             (omni-log-logger-set-property omni-quotes-global-quote-log 'fading value))
-         (set-default symb value)))
+  :set (omni-quotes--log-setter 'fading))
 
 (defcustom omni-quotes-fading-delay 14
   "Delay after which quote will fade away."
   :type 'number :group 'omni-quotes
-  :set (lambda (symb value)
-         (if (boundp 'omni-quotes-global-quote-log)
-             (omni-log-logger-set-property omni-quotes-global-quote-log 'fading-delay value))
-         (set-default symb value)))
+  :set (omni-quotes--log-setter 'fading-delay))
 
 (defcustom omni-quotes-fading-duration 4
   "Duration of the fade away effect."
   :type 'number :group 'omni-quotes
-  :set (lambda (symb value)
-         (if (boundp 'omni-quotes-global-quote-log)
-             (omni-log-logger-set-property omni-quotes-global-quote-log 'fading-duration value))
-         (set-default symb value)))
+  :set (omni-quotes--log-setter 'fading-duration))
 
 (defcustom omni-quotes-centered nil
   "Does omni-quote fade after some duration."
   :type 'boolean :group 'omni-quotes
-  :set (lambda (symb value)
-         (if (boundp 'omni-quotes-global-quote-log)
-             (omni-log-logger-set-property omni-quotes-global-quote-log 'centered value))
-         (set-default symb value)))
+  :set (omni-quotes--log-setter 'centered))
 
 (when omni-quotes-color-prompt-p ;; §maybe: probably to kill
   (setq omni-quotes-prompt (propertize omni-quotes-prompt 'face 'font-lock-keyword-face)))
