@@ -152,7 +152,8 @@ Constructed from `omni-quotes-boring-message-patterns'.")
                    `((prompt . ,omni-quotes-prompt)
                      (fading . ,omni-quotes-fading)
                      (fading-delay . ,omni-quotes-fading-delay)
-                     (fading-duration . ,omni-quotes-fading-duration)))
+                     (fading-duration . ,omni-quotes-fading-duration)
+                     (centered . , omni-quotes-centered)))
       "Specific logger for omni-quotes.")
 
 ;;;###autoload
@@ -163,9 +164,7 @@ The quote will be prefixed by the current `omni-quotes-prompt'"
   (interactive)
   (log-omni-quotes (omni-quotes-random-quote)))
 ;; §maybe: [append with date?]
-;; §later: add fading/sliding ->>? rather omni-log level feature
 ;; §maybe: change format: catégorie > texte.
-;; §see: refactor to have specific logger for log? (fuction sending quote and logger?)
 
 (defun omni-quotes-random-quote ()
   "Get a random quote."
