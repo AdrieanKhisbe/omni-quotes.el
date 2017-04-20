@@ -4,7 +4,7 @@
 ;;
 ;; Author: Adrien Becchis <adriean.khisbe@live.fr>
 ;; Created: 2014-07-17
-;; Version: 0.4.1
+;; Version: 0.4.2
 ;; Keywords: convenience
 ;; Package-Requires: ((dash "2.8") (omni-log "0.3.3") (f "0.19.0") (s "1.11.0") (ht "2.1"))
 ;; Url: https://github.com/AdrieanKhisbe/omni-quotes.el
@@ -53,7 +53,7 @@
 (defcustom omni-quotes-repeat-interval 20 "OmniQuote repeat time, in seconds."
   :type 'number :group 'omni-quotes)
 
-(defun omni-quotes--log-settter (property)
+(defun omni-quotes--log-setter (property)
   "Return function handling forwarding PROPERTY update to logger."
   (lambda (symb value)
     (if (boundp 'omni-quotes-global-quote-log)

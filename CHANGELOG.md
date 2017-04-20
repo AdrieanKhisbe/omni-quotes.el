@@ -4,6 +4,11 @@ All notable changes to *omni-quotes.el* will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
+## [0.4.2] - 2017-04-20
+### Added
+- centered options
+### CHANGED
+- factorized customize setter
 ## [0.4.1] - 2017-04-19
 ### Fixed
 - Omni-log fading minor bugs
@@ -27,7 +32,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [0.1.0] - 2015-11-15
 - "Initial" stable Release
 
-[unreleased]: https://github.com/AdrieanKhisbe/omni-quotes.el/compare/v0.4.1...HEAD
+[unreleased]: https://github.com/AdrieanKhisbe/omni-quotes.el/compare/v0.4.2...HEAD
+[0.4.2]: https://github.com/AdrieanKhisbe/omni-quotes.el/compare/v0.4.1....v0.4.2
 [0.4.1]: https://github.com/AdrieanKhisbe/omni-quotes.el/compare/v0.4.0....v0.4.1
 [0.4.0]: https://github.com/AdrieanKhisbe/omni-quotes.el/compare/v0.3.0....v0.4.0
 [0.3.0]: https://github.com/AdrieanKhisbe/omni-quotes.el/compare/v0.2.0....v0.3.0
