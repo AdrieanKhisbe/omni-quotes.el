@@ -62,11 +62,11 @@
 
 (defcustom omni-quotes-prompt " » " "Leading prompt of OmniQuotes messages."
   :type 'string :group 'omni-quotes
-  :set (omni-quotes--log-setter 'prompt))
-;; §maybe will become a separator?
-
-(defcustom omni-quotes-color-prompt-p t "Is The Omni-Quote \"prompt\" colored."
-  :type 'boolean :group 'omni-quotes) ; §later: face (also for the text)
+  :set (lambda (symb value)
+         (let ((value (propertize value 'omni-quote-p t)))
+           (if (boundp 'omni-quotes-global-quote-log)
+               (omni-log-logger-set-property omni-quotes-global-quote-log 'prompt value))
+         (set-default symb value))))
 
 (defcustom omni-quotes-fading nil
   "Does omni-quote fade after some duration."
@@ -87,10 +87,6 @@
   "Does omni-quote fade after some duration."
   :type 'boolean :group 'omni-quotes
   :set (omni-quotes--log-setter 'centered))
-
-(when omni-quotes-color-prompt-p ;; §maybe: probably to kill
-  (setq omni-quotes-prompt (propertize omni-quotes-prompt 'face 'font-lock-keyword-face)))
-(setq omni-quotes-prompt (propertize omni-quotes-prompt 'omni-quote-p t))
 
 (defcustom omni-quotes-default-quotes
   '(
