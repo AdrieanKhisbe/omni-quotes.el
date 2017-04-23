@@ -33,7 +33,6 @@
   "Add OmniQuote idle timer with repeat (by default).
 
 With NO-REPEAT idle display will happen once."
-  (interactive)
   (omni-quotes-cancel-and-set-new-timer
    (run-with-timer omni-quotes-idle-interval
                    (if no-repeat nil omni-quotes-repeat-interval)
@@ -41,7 +40,6 @@ With NO-REPEAT idle display will happen once."
 
 (defun omni-quotes-idle-display-stop ()
   "Stop OmniQuote Idle timer."
-  (interactive)
   (omni-quotes-cancel-and-set-new-timer nil))
 
 ;; ¤> Helper Methods:

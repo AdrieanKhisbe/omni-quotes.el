@@ -48,7 +48,7 @@
   ;; §maybe: replace Q, (or greek style)
   :type 'string :group 'omni-quotes)
 
-(defcustom omni-quotes-idle-interval 3 "OmniQuote idle time, in seconds."
+(defcustom omni-quotes-idle-interval 5 "OmniQuote idle time, in seconds."
   :type 'number :group 'omni-quotes)
 (defcustom omni-quotes-repeat-interval 20 "OmniQuote repeat time, in seconds."
   :type 'number :group 'omni-quotes)
@@ -203,9 +203,12 @@ The quote will be prefixed by the current `omni-quotes-prompt'"
   "Display random quotes when idle."
   :lighter omni-quotes-lighter
   :global t
-  (progn
-    (if omni-quotes-mode
-        (omni-quotes-idle-display-start)
+  (if omni-quotes-mode
+      (progn
+        (add-hook 'post-command-hook 'omni-quotes-idle-display-start)
+        (omni-quotes-idle-display-start))
+    (progn
+      (remove-hook 'post-command-hook 'omni-quotes-idle-display-start)
       (omni-quotes-idle-display-stop))))
 
 ;; §maybe: tmp?
