@@ -29,30 +29,21 @@
 
 (defvar omni-quotes-idle-timer nil "OmniQuote timer.")
 
-(defun omni-quotes-idle-display-start (&optional no-repeat)
+(defun  omni-quotes-idle-display-start (&optional no-repeat)
   "Add OmniQuote idle timer with repeat (by default).
 
 With NO-REPEAT idle display will happen once."
-  (omni-quotes-cancel-and-set-new-timer
-   (run-with-timer omni-quotes-idle-interval
-                   (if no-repeat nil omni-quotes-repeat-interval)
-                   #'omni-quotes-idle-display-callback)))
+  (when (timerp omni-quotes-idle-timer)
+    (cancel-timer omni-quotes-idle-timer))
+  (setq omni-quotes-idle-timer (run-with-timer omni-quotes-idle-interval
+                                               (if no-repeat nil omni-quotes-repeat-interval)
+                                               #'omni-quotes-idle-display-callback)))
 
 (defun omni-quotes-idle-display-stop ()
   "Stop OmniQuote Idle timer."
-  (omni-quotes-cancel-and-set-new-timer nil))
-
-;; ¤> Helper Methods:
-(defsubst omni-quotes-cancel-if-timer ()
-  "Cancel OmniQuote timer (`omni-quotes-idle-timer') if set."
   (when (timerp omni-quotes-idle-timer)
-    (cancel-timer omni-quotes-idle-timer)))
-
-(defun omni-quotes-cancel-and-set-new-timer (new-timer)
-  "Cancel timer (`omni-quotes-idle-timer') and set it to new value.
-Argument NEW-TIMER is the new timer to set (nil to disable)."
-  (omni-quotes-cancel-if-timer)
-  (setq omni-quotes-idle-timer new-timer))
+    (cancel-timer omni-quotes-idle-timer))
+  (setq omni-quotes-idle-timer nil))
 
 (provide 'omni-quotes-timer)
 ;;; omni-quotes-timer.el ends here
