@@ -66,7 +66,11 @@
          (let ((value (propertize value 'omni-quote-p t)))
            (if (boundp 'omni-quotes-global-quote-log)
                (omni-log-logger-set-property omni-quotes-global-quote-log 'prompt value))
-         (set-default symb value))))
+           (set-default symb value))))
+
+(defcustom omni-quotes-max-repeat 6
+  "Number of omni-quotes will repeat without any activity. If zero there wont be any limit"
+  :type 'number :group 'omni-quotes)
 
 (defcustom omni-quotes-fading nil
   "Does omni-quote fade after some duration."
@@ -149,7 +153,7 @@ Constructed from `omni-quotes-boring-message-patterns'.")
                      (fading . ,omni-quotes-fading)
                      (fading-delay . ,omni-quotes-fading-delay)
                      (fading-duration . ,omni-quotes-fading-duration)
-                     (centered . , omni-quotes-centered)))
+                     (centered . ,omni-quotes-centered)))
       "Specific logger for omni-quotes.")
 
 ;;;###autoload
@@ -171,8 +175,6 @@ The quote will be prefixed by the current `omni-quotes-prompt'"
 ;;        jusqu'à la prochaine touche
 
 (defvar omni-quotes--nb-current-repeat 0)
-(defcustom omni-quotes-max-repeat 4
-  "Number of omni-quotes will repeat without any activity")
 
 (defun omni-quotes-idle-display-callback () ; §maybe rename of move in timer?
   "OmniQuote Timer callback function."
@@ -180,13 +182,12 @@ The quote will be prefixed by the current `omni-quotes-prompt'"
 
   (if (or (active-minibuffer-window) ; check if there is no prompt waiting
               (omni-quotes-cant-redisplay))
-    ;; §todo: after to long idle time disable it (maybe use other timer, or number of iteration. (how to reset?))
-    ;;        ptetre un nombre de répétitions dans le timer? (sinon mettre au point une heuristique)
       (setq omni-quotes--nb-current-repeat 0)
     (let ((cm (current-message)))
       (setq omni-quotes--nb-current-repeat
             (if (and cm (get-text-property 0 'omni-quote-p cm)) (1+ omni-quotes--nb-current-repeat) 1))
-      (if (>= omni-quotes-max-repeat omni-quotes--nb-current-repeat)
+      (if (or (eq 0 omni-quotes-max-repeat)
+              (>= omni-quotes-max-repeat omni-quotes--nb-current-repeat))
           (omni-quotes-display-random-quote)))))
 
 (defun omni-quotes-cant-redisplay()
