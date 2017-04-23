@@ -61,13 +61,15 @@ the provided QUOTE-LIST and NAME."
 
 (defun omni-quote--shuffle-list (list)
   "Returns a shuffled version of the LIST."
-  (let ((next-insert 0)
-        (shuffled-list nil))
-    (-each list
-      (lambda (el)
-        (progn (setq shuffled-list (-insert-at next-insert el shuffled-list)
-                     next-insert (random (length shuffled-list))))))
-    shuffled-list))
+  (let ((new-list (reverse list))) ; simple clone (suffling is in place)
+    (-each (reverse (number-sequence 1 (1- (length new-list))))
+      (lambda (i) "Swap two elements."
+        (let* ((j (random (+ i 1)))
+               (tmp (elt new-list i)))
+          (setf (elt new-list i) (elt new-list j))
+          (setf (elt new-list j) tmp))))
+    new-list))
+
 
 (defun omni-quotes-set-next (quote-set)
   "Send next quote of the QUOTE-SET and move pointer."
