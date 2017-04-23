@@ -100,10 +100,11 @@ the provided QUOTE-LIST and NAME."
   (let* ((new-list (omni-quote--shuffle-list (ht-get quote-set 'list)))
          (new-ring (make-ring (length new-list))))
     (-each new-list (lambda (quote) (ring-insert new-ring quote)))
-    (ht-set! quote-set 'ring new-ring)))
+    (ht-set! quote-set 'ring new-ring)
+    (ht-set! quote-set 'pointer 0)))
 
 (defun omni-quotes-shuffle-current-set ()
-  "Reshuffle current `omni-quotes-current-set'"
+  "Reshuffle current `omni-quotes-current-set'."
   (interactive)
   (omni-quotes-shuffle-set omni-quotes-current-set))
 
