@@ -170,25 +170,32 @@ The quote will be prefixed by the current `omni-quotes-prompt'"
 ;; §maybe: create an intensive mode. quotes plus raprochées. éventuellement un slidding effect. sans interruption
 ;;        jusqu'à la prochaine touche
 
+(defvar omni-quotes--nb-current-repeat 0)
+(defcustom omni-quotes-max-repeat 4
+  "Number of omni-quotes will repeat without any activity")
 
 (defun omni-quotes-idle-display-callback () ; §maybe rename of move in timer?
   "OmniQuote Timer callback function."
   ;; §maybe: force? optional argument? §maybe: extract in other function
 
-  (unless (or (active-minibuffer-window) ; check if there is no prompt waiting
+  (if (or (active-minibuffer-window) ; check if there is no prompt waiting
               (omni-quotes-cant-redisplay))
     ;; §todo: after to long idle time disable it (maybe use other timer, or number of iteration. (how to reset?))
     ;;        ptetre un nombre de répétitions dans le timer? (sinon mettre au point une heuristique)
-
-    (omni-quotes-display-random-quote)))
+      (setq omni-quotes--nb-current-repeat 0)
+    (let ((cm (current-message)))
+      (setq omni-quotes--nb-current-repeat
+            (if (and cm (get-text-property 0 'omni-quote-p cm)) (1+ omni-quotes--nb-current-repeat) 1))
+      (if (>= omni-quotes-max-repeat omni-quotes--nb-current-repeat)
+          (omni-quotes-display-random-quote)))))
 
 (defun omni-quotes-cant-redisplay()
   "Tells if Quote should be display. (in order to avoid erasing of important messages)"
   (let ((cm (current-message)))
     (and cm
          (not (or (get-text-property 0 'omni-quote-p cm)
-                  ;; §todo: check if prompt not empty.
                   (string-match omni-quotes-boring-message-regexp cm))))))
+
 
 ;;;###autoload
 (define-minor-mode omni-quotes-mode
