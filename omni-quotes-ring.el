@@ -72,14 +72,20 @@ the provided QUOTE-LIST and NAME."
 
 
 (defun omni-quotes-set-next (quote-set)
-  "Send next quote of the QUOTE-SET and move pointer."
+  "Send current quote of the QUOTE-SET and move pointer forward."
   (let* ((ring (ht-get quote-set 'ring))
          (pointer (ht-get quote-set 'pointer))
          (quote (ring-ref ring pointer)))
     (ht-set! quote-set 'pointer (1+ pointer))
     quote))
 
-;; §later: prev
+(defun omni-quotes-set-prev (quote-set)
+  "Send current quote of the QUOTE-SET and move pointer backward."
+  (let* ((ring (ht-get quote-set 'ring))
+         (pointer (ht-get quote-set 'pointer))
+         (quote (ring-ref ring pointer)))
+    (ht-set! quote-set 'pointer (1- pointer))
+    quote))
 
 (defun omni-quotes-set-random (quote-set)
   "Give a random quote from the QUOTE-SET."
