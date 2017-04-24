@@ -45,11 +45,12 @@
 
 ;;; ¤> customs:
 (defcustom omni-quotes-lighter " Ξ" "OmniQuote lighter (name in modeline) if any."
-  ;; §maybe: replace Q, (or greek style)
+  ;; §maybe: replace by Q, (or greek style ϙ)
   :type 'string :group 'omni-quotes)
 
-(defcustom omni-quotes-idle-interval 5 "OmniQuote idle time, in seconds."
+(defcustom omni-quotes-idle-interval 4 "OmniQuote idle time, in seconds."
   :type 'number :group 'omni-quotes)
+
 (defcustom omni-quotes-repeat-interval 20 "OmniQuote repeat time, in seconds."
   :type 'number :group 'omni-quotes)
 
@@ -120,8 +121,6 @@
 
 ;; §later: use category. (revision, stupid quote, emacs tips, emacs binding to learn...)
 ;;         category based on context (ex langage specific tips)
-;; §later: offer many method to get quotes (files, web), and use a var holding
-;;        current function used to et quote. (call this several tim to populate the ring)
 
 (defcustom omni-quotes-boring-message-patterns
   '(
@@ -160,7 +159,6 @@ Constructed from `omni-quotes-boring-message-patterns'.")
 (defun omni-quotes-display-random-quote ()
   "Display a random quote obtained from `omni-quotes-random-quote'.
 The quote will be prefixed by the current `omni-quotes-prompt'"
-  ;; §maybe: alias in global name space du genre `omni-quotes-random-display'
   (interactive)
   (log-omni-quotes (omni-quotes-random-quote)))
 ;; §maybe: [append with date?]
