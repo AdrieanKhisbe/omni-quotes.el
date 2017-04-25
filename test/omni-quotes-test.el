@@ -76,7 +76,10 @@
   (omni-quotes-shuffle-current-set)
   (should (equal (ht-get omni-quotes-current-set 'pointer) 0)))
 
-(ert-deftest omni-quote-prev-set-test()
+(ert-deftest omni-quote-set-prev-test()
   (let ((pointer (ht-get omni-quotes-current-set 'pointer)))
     (should (omni-quotes-set-prev omni-quotes-current-set))
     (should (equal (1- pointer) (ht-get omni-quotes-current-set 'pointer)))))
+
+(ert-deftest omni-quote-set-random-test()
+    (should (omni-quotes-set-random omni-quotes-current-set)))
