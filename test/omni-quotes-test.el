@@ -1,6 +1,10 @@
 (ert-deftest  can-retrieve-quote ()
   (should (s-presence (omni-quotes-random-quote))))
 
+(ert-deftest can-set-custom ()
+  (customize-set-variable 'omni-quotes-fading t)
+  (should (equal t omni-quotes-fading)))
+
 ;;; ¤> parsers
 
 (ert-deftest load-simple-quote-file ()
@@ -49,6 +53,12 @@
             (omni-quotes-display-random-quote => "called"))
            (should (equal (omni-quotes-idle-display-callback) "called"))))
 
+(ert-deftest calling-omni-quote-start-cancels-the-timer()
+  (omni-quotes-idle-display-start)
+  (should omni-quotes-idle-timer)
+  (omni-quotes-idle-display-start)
+  (should omni-quotes-idle-timer))
+
 ;;; ¤> Quote ring
 
 (ert-deftest omni-quotes-next-set-ok ()
@@ -60,3 +70,13 @@
   (let ((pointer omni-quotes-sets-ring-pointer))
     (omni-quotes-prev-set)
     (should (equal (1- pointer) omni-quotes-sets-ring-pointer))))
+
+;; ¤>> simple test, calling function
+(ert-deftest shuffle-didnt-fail ()
+  (omni-quotes-shuffle-current-set)
+  (should (equal (ht-get omni-quotes-current-set 'pointer) 0)))
+
+(ert-deftest omni-quote-prev-set-test()
+  (let ((pointer (ht-get omni-quotes-current-set 'pointer)))
+    (should (omni-quotes-set-prev omni-quotes-current-set))
+    (should (equal (1- pointer) (ht-get omni-quotes-current-set 'pointer)))))
