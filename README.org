@@ -35,6 +35,7 @@ If you use [[https://github.com/jwiegley/use-package][use-package]] you could us
     :bind (("M-s q m" . omni-quotes-mode)
            ("M-s q p" . omni-quotes-prev-set)
            ("M-s q n" . omni-quotes-next-set)
+           ("M-s q s" . omni-quotes-shuffle-current-set)
            ("M-s q q" . omni-quotes-display-random-quote))
     :config (omni-quotes-load-simple-quote-file "~/.my-quote" "personal"))
 #+end_src
@@ -48,6 +49,7 @@ Here are the main ones:
 - =omni-quotes-default-quotes= :: List of default quotes
 - =omni-quotes-prompt= :: Leading prompt of quotes messages
 - =omni-quotes-idle-interval= :: Idle time after which omni-quote start to display quotes
+- =omni-quotes-max-repeat= :: Number of omni-quotes will repeat without any activity. If zero there wont be any limit
 - =omni-quotes-fading= :: Does the quote fade after some time
 - =omni-quotes-fading-delay= :: Delay before the fading effect
 - =omni-quotes-fading-duration= :: Time it takes for the quote to fade away
