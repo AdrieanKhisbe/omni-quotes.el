@@ -4,7 +4,8 @@
 ;;
 ;; Author: Adrien Becchis <adriean.khisbe@live.fr>
 ;; Created: 2014-07-17
-;; Version: 0.5.0
+;; Last-Release: 2020-03-04
+;; Version: 0.5.1
 ;; Keywords: convenience
 ;; Package-Requires: ((dash "2.8") (omni-log "0.4.0") (f "0.19.0") (s "1.11.0") (ht "2.1"))
 ;; Url: https://github.com/AdrieanKhisbe/omni-quotes.el
