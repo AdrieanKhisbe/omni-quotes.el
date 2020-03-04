@@ -1,6 +1,6 @@
 ;;; omni-quotes-ring.el --- Datastructure to old [Omni] Quotes
 ;;
-;; Copyright (C) 2014-2017 Adrien Becchis
+;; Copyright (C) 2014-2020 Adrien Becchis
 ;;
 ;; Author: Adrien Becchis <adriean.khisbe@live.fr>
 ;; Keywords: convenience

@@ -1,6 +1,6 @@
 ;;; omni-quotes.el --- Random quotes displayer   -*- lexical-binding: t -*-
 ;;
-;; Copyright (C) 2014-2017 Adrien Becchis
+;; Copyright (C) 2014-2020 Adrien Becchis
 ;;
 ;; Author: Adrien Becchis <adriean.khisbe@live.fr>
 ;; Created: 2014-07-17

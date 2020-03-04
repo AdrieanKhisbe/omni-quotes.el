@@ -4,6 +4,11 @@ All notable changes to *omni-quotes.el* will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
+
+### Fixed
+- Restored support to emacs26
+- Avoid colision with other packages like ivy/swiper
+
 # [0.5.0] - 2017-04-25
 ### Added
 - Shuffle Quote set methods
